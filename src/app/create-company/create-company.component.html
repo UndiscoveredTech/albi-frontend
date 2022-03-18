@@ -1,0 +1,49 @@
+<h1 mat-dialog-title>Create New Company</h1>
+  <div mat-dialog-content>
+  <!-- <p>Company name?</p>
+  <mat-form-field>
+    <mat-label>Name</mat-label>
+    <input id="company-name" matInput required>
+  </mat-form-field>
+
+  <p>Company description?</p>
+  <mat-form-field>
+    <mat-label>Description</mat-label>
+    <input id="company-desc" matInput required>
+  </mat-form-field>
+
+  <p>Company NIPT</p>
+  <mat-form-field>
+    <mat-label>NIPT</mat-label>
+    <input id="company-nipt" matInput required>
+  </mat-form-field> -->
+  <form [formGroup]="companyForm">
+
+
+    <label for="emri">Name: </label>
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input id="company-name" type="text" matInput required="true" formControlName="emri">
+    </mat-form-field>
+    <!-- <input id="emri" type="text" formControlName="emri"> -->
+  
+    <label for="description">Description: </label>
+    <mat-form-field>
+      <mat-label>Description</mat-label>
+      <input id="description" type="text" formControlName="description" matInput required="true">
+    </mat-form-field>
+    <!-- <input id="description" type="text" formControlName="description"> -->
+
+    <label for="nipt">Nipt: </label>
+    <mat-form-field>
+      <mat-label>NIPT</mat-label>
+      <input id="nipt" type="text" formControlName="nipt" matInput required="true">
+    </mat-form-field> -->
+    <!-- <input id="nipt" type="text" formControlName="nipt" required=""> -->
+  
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Close</button>
+  <button mat-button type="submit" (click)="onSubmit()" cdkFocusInitial>Ok</button>
+</div>

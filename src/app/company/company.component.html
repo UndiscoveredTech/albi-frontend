@@ -1,0 +1,63 @@
+<div class="container mt-5">
+
+    <h1>Company Management</h1>
+    <button mat-raised-button (click)="openDialog()">Create company</button> 
+       
+
+    <!-- <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Numri</th>
+            <th scope="col">Emri</th>
+            <th scope="col">Pershkrimi</th>
+            <th scope="col">Nipt</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor = "let us of companyData; let indexOfelement = index;">
+            <th scope="row">{{indexOfelement+1}}</th>
+            <td>{{us.name}}</td>
+            <td>{{us.description}}</td>
+            <td>{{us.nipt}}</td>
+          </tr>
+        
+        </tbody>
+      </table> -->
+
+
+      <table mat-table [dataSource]="dataSource" #mytable class="my-table mat-elevation-z8 table">
+
+        <!--- Note that these columns can be defined in any order.
+            The actual rendered columns are set as a property on the row definition" -->
+    
+        <!-- Id Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Emri. </th>
+          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+    
+        <!-- Name Column -->
+        <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef> Description </th>
+          <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+        </ng-container>
+
+         <!-- Name Column -->
+         <ng-container matColumnDef="nipt">
+          <th mat-header-cell *matHeaderCellDef> Nipt </th>
+          <td mat-cell *matCellDef="let element"> {{element.nipt}} </td>
+        </ng-container>
+    
+        <!-- Action Column -->
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef> Action </th>
+          <td mat-cell *matCellDef="let element" class="action-link"> 
+            <a (click)="onEditCompany(element)">Edit</a> | 
+            <a (click)="onDeleteCompany(element)">Delete</a>  
+          </td>
+        </ng-container>
+    
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+  </div>
