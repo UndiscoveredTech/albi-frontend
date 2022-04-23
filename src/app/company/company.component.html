@@ -31,17 +31,20 @@
           <!-- Bonus Column -->
           <ng-container matColumnDef="bonus">
             <th mat-header-cell *matHeaderCellDef>Bonus</th>
-            <td mat-cell *matCellDef="let element"> {{element.bonus.bonus}}% {{element.bonus.bonus_type}} </td>
+            <td mat-cell *matCellDef="let element"> {{(element.bonus.bonus_type == "BRUTO Mujore" || element.bonus.bonus_type == "NETO Mujore")
+              ?  (element.bonus.bonus[0] + convertToShort(element.bonus.bonus_type)) : "-"}}  </td>
           </ng-container>
            <!-- BonusFirstWeek Column -->
            <ng-container matColumnDef="bonusfirstweek">
             <th mat-header-cell *matHeaderCellDef>Bonus First Week</th>
-            <td mat-cell *matCellDef="let element"> {{element.bonus.bonusfirstweek}}% {{element.bonus.bonus_type}} </td>
+            <td mat-cell *matCellDef="let element"> {{ (element.bonus.bonus_type == "BRUTO Javore" || element.bonus.bonus_type == "NETO Javore") ? 
+              (element.bonus.bonus[0] + convertToShort(element.bonus.bonus_type))  : "-"}}  </td>
           </ng-container>
            <!-- BonusSecondWeek Column -->
            <ng-container matColumnDef="bonussecondweek">
             <th mat-header-cell *matHeaderCellDef>Bonus Second Week</th>
-            <td mat-cell *matCellDef="let element"> {{element.bonus.bonussecondweek}}% {{element.bonus.bonus_type}} </td>
+            <td mat-cell *matCellDef="let element"> {{ (element.bonus.bonus_type == "BRUTO Javore" || element.bonus.bonus_type == "NETO Javore") ? 
+              (element.bonus.bonus[1] +  convertToShort(element.bonus.bonus_type)) : "-"}} </td>
           </ng-container>
           <!-- Number of Employees Column -->
           <ng-container matColumnDef="users">

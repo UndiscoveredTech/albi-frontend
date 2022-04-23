@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CompanyService } from '../_services/company.service';
 import {MatDialog} from '@angular/material/dialog';
-import { CreateCompanyComponent } from '../create-company/create-company.component';
+import { BONUS_TYPE, CreateCompanyComponent } from '../create-company/create-company.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -73,5 +73,18 @@ export class CompanyComponent implements OnInit {
     });
   }
 
+
+  convertToShort(desc: string): string{
+    let short = "";
+    if(desc == BONUS_TYPE.BrutoMujore)
+      short =  "BM"
+    else if(desc == BONUS_TYPE.NetoMujore)
+      short =  "NM"
+    else if(desc == BONUS_TYPE.BrutoJavore)
+      short =  "BJ"
+    else if(desc == BONUS_TYPE.NetoJavore)
+      short = "NJ"  
+    return short;
+  }
   
 }

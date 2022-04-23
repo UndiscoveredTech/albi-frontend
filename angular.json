@@ -125,5 +125,8 @@
       }
     }
   },
-  "defaultProject": "calculate-salary"
+  "defaultProject": "calculate-salary",
+  "cli": {
+    "analytics": false
+  }
 }
