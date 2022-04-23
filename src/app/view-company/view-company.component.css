@@ -1,0 +1,11 @@
+.users-details-list{
+    background-color: rgb(215, 215, 216);
+}
+.card {
+
+    margin: 10px;
+}
+.company-box {
+
+    display: flex;
+}

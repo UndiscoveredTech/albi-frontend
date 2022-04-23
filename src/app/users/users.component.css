@@ -1,0 +1,15 @@
+.mat-header-cell {
+
+    font-size: 15px;
+}
+.action-link {
+    color: white;
+}
+.table {
+    margin-top: 1rem;
+}
+table td, th {
+
+    padding: 10px !important;
+    text-align: center !important;
+}

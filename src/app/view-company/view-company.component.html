@@ -1,0 +1,14 @@
+
+<div class="container">
+    <h1>Company name: <strong>{{dataSource.name}} ({{dataSource.users.length}})</strong></h1>
+    <div class="company-box">
+        <div *ngFor="let user of dataSource.users" class="card" style="width: 15rem;">
+            <div class="card-body">
+                <h1 class="card-title">{{user.name}}</h1>
+                <p class="card-text">{{user.email}}</p>
+                <p *ngIf="user.calculation" class="card-text">{{user.calculation.monthlyGrossSalary}}</p>
+                <a [routerLink]="['/employee/associate', user._id]" routerLinkActive="active" class="btn btn-primary">Assoc</a>
+            </div>
+        </div>
+    </div>
+</div>

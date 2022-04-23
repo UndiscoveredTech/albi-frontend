@@ -1,0 +1,64 @@
+<div class="container mt-5">
+
+    <h1>Company Management</h1>
+    <button mat-raised-button (click)="openDialog()">Create company</button> 
+    
+      <table mat-table [dataSource]="dataSource" #mytable class="my-table mat-elevation-z8 table">
+
+           <!-- Index Column -->
+           <ng-container matColumnDef="index">
+            <th mat-header-cell *matHeaderCellDef>#</th>
+            <td mat-cell *matCellDef="let element; let i = index;">{{i+1}}</td>
+          </ng-container>
+          <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>Emri</th>
+          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+    
+        <!-- Address Column -->
+        <ng-container matColumnDef="address">
+          <th mat-header-cell *matHeaderCellDef>Address</th>
+          <td mat-cell *matCellDef="let element"> {{element.address}} </td>
+        </ng-container>
+
+        <!-- Nipt Column -->
+        <ng-container matColumnDef="nipt">
+          <th mat-header-cell *matHeaderCellDef>Nipt</th>
+          <td mat-cell *matCellDef="let element"> {{element.nipt}} </td>
+        </ng-container>
+         
+          <!-- Bonus Column -->
+          <ng-container matColumnDef="bonus">
+            <th mat-header-cell *matHeaderCellDef>Bonus</th>
+            <td mat-cell *matCellDef="let element"> {{element.bonus.bonus}}% {{element.bonus.bonus_type}} </td>
+          </ng-container>
+           <!-- BonusFirstWeek Column -->
+           <ng-container matColumnDef="bonusfirstweek">
+            <th mat-header-cell *matHeaderCellDef>Bonus First Week</th>
+            <td mat-cell *matCellDef="let element"> {{element.bonus.bonusfirstweek}}% {{element.bonus.bonus_type}} </td>
+          </ng-container>
+           <!-- BonusSecondWeek Column -->
+           <ng-container matColumnDef="bonussecondweek">
+            <th mat-header-cell *matHeaderCellDef>Bonus Second Week</th>
+            <td mat-cell *matCellDef="let element"> {{element.bonus.bonussecondweek}}% {{element.bonus.bonus_type}} </td>
+          </ng-container>
+          <!-- Number of Employees Column -->
+          <ng-container matColumnDef="users">
+            <th mat-header-cell *matHeaderCellDef>Number of Employees</th>
+            <td mat-cell *matCellDef="let element"> {{element.users.length}} </td>
+          </ng-container>
+        <!-- Action Column -->
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef> Action </th>
+          <td mat-cell *matCellDef="let element" class="action-link"> 
+            <a class="btn btn-secondary" (click)="onEditCompany(element)">Edit</a>
+            <a class="btn btn-danger" (click)="onDeleteCompany(element)">Delete</a> 
+            <a class="btn btn-info" (click)="onViewCompany(element)">View</a> 
+          </td>
+        </ng-container>
+    
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+  </div>

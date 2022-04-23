@@ -1,0 +1,41 @@
+<div class="overlay-blur"></div>
+<h1 mat-dialog-title>{{title}}</h1>
+  <div mat-dialog-content>
+
+  <form [formGroup]="employeeForm" class="form-company">
+
+
+    <label for="name">Name: </label>
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input id="company-name" type="text" matInput required="true" formControlName="name">
+    </mat-form-field>
+    <!-- <input id="emri" type="text" formControlName="emri"> -->
+  
+    <label for="description">Email: </label>
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input id="description" type="text" formControlName="email" matInput required="true">
+    </mat-form-field>
+
+    <label for="description">Company: </label>
+  
+        <mat-form-field>
+          <mat-label>Choose Company</mat-label>
+            <mat-select matInput formControlName="company" >
+              
+                 
+                <mat-option  *ngFor="let company of companyList" [value]="company._id">
+                    {{company.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        
+  
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Close</button>
+  <button mat-button type="submit" (click)="onSubmit()" cdkFocusInitial [disabled]="employeeForm.invalid">Save</button>
+</div>

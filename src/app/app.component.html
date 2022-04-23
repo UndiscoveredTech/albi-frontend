@@ -1,0 +1,39 @@
+<div id="app" class="home-div">
+  <nav class="navbar navbar-expand navbar-dark bg-white">
+    <a href="/home" class="navbar-brand">
+      <picture class="Image_picture">
+        <img src="https://www.pendlpiswanger.al/app/themes/towa-theme/dist/static/pp-Logo.svg" alt="Logo">
+      </picture>
+    </a>
+    <div class="Nav__wrapper">
+    <ul class="navbar-nav mr-auto" routerLinkActive="active">
+     
+      <li class="nav-item" *ngIf="isLoggedIn">
+        <a href="/company" class="nav-link" routerLink="company">Companies</a>
+      </li>
+      <li class="nav-item" *ngIf="isLoggedIn">
+        <a href="/employee" class="nav-link" routerLink="employee">Employees</a>
+      </li>
+
+    </ul>
+    <ul class="navbar-nav ml-auto" *ngIf="!isLoggedIn">
+      <li class="nav-item">
+        <a href="/register" class="nav-link" routerLink="register">Sign Up</a>
+      </li>
+      <li class="nav-item">
+        <a href="/login" class="nav-link" routerLink="login">Login</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav ml-auto" *ngIf="isLoggedIn">
+      <li class="nav-item">
+        <a href="/profile" class="nav-link" routerLink="profile">{{ username }}</a>
+      </li>
+      <li class="nav-item">
+        <a href class="nav-link" (click)="logout()">LogOut</a>
+      </li>
+    </ul>
+  </div>
+  </nav>
+ 
+    <router-outlet></router-outlet>
+</div>
