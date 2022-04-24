@@ -36,20 +36,20 @@
 
     <mat-form-field *ngIf="bonus_type_actual_value == 'NETO Mujore' || bonus_type_actual_value == 'BRUTO Mujore'">
       <mat-label >Bonus</mat-label>
-      <input  type="text" formControlName="bonus" matInput >
+      <input  type="text" formControlName="bonus"  matInput >
     </mat-form-field>
     <span class="d-flex justify-content-between" *ngIf="bonus_type_actual_value == 'NETO Javore' || bonus_type_actual_value == 'BRUTO Javore'">
           <mat-form-field>
             
                 <mat-label >Java e pare</mat-label>
-                <input  type="text" formControlName="bonusfirstweek" matInput >
+                <input  type="text" formControlName="bonusfirstweek"  matInput >
 
           </mat-form-field>
 
           <mat-form-field>
             
             <mat-label >Java e dyte</mat-label>
-            <input  type="text" formControlName="bonussecondweek" matInput >
+            <input  type="text" formControlName="bonussecondweek"  matInput >
 
       </mat-form-field>
     </span>
