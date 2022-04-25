@@ -1,0 +1,8 @@
+export enum TAX {
+    SIGURIME_SHOQERORE = 0.095,
+    SIGURIME_SHENDETSORE = 0.017,
+    TAP_BOTTOM = 0,
+    TAP_MID = 0.13,
+    TAP_TOP = 0.23,
+
+}

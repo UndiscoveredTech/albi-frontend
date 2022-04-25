@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, of } from 'rxjs';
+import { TAX } from '../shared/constants';
 import { CompanyService } from '../_services/company.service';
 import { EmployeeService } from '../_services/employee.service';
 import { StaticMonthService } from '../_services/monthYearStatic.service';
@@ -9,18 +10,19 @@ import { UserService } from '../_services/user.service';
 
 
 interface Calculation {
-  monthlyGrossSalary: Number,
-  hourlyWage: Number,
-  normalWorkingHours: Number,
-  nightWorkingHoursDuringWeek: Number,
-  overtimeDuringWeek: Number,
-  workingHoursOnWeekend: Number,
-  nightWorkingHoursDuringWeekend: Number,
-  overtimeDuringWeekend: Number,
-  totalPaidDays: Number,
-  grossSalaryAll: Number,
-  levelOfInsurance: Number,
-  user_id: String
+  monthlyNetSalary?: Number,
+  grossOfNet?: Number,
+  hourlyWage?: Number,
+  normalWorkingHours?: Number,
+  nightWorkingHoursDuringWeek?: Number,
+  overtimeDuringWeek?: Number,
+  workingHoursOnWeekend?: Number,
+  nightWorkingHoursDuringWeekend?: Number,
+  overtimeDuringWeekend?: Number,
+  totalPaidDays?: Number,
+  grossSalaryAll?: Number,
+  levelOfInsurance?: Number,
+  user_id?: String
 }
 
 interface MonthYear {
@@ -64,18 +66,19 @@ export class UserAssociateComponent implements OnInit {
       email: new FormControl({value: '', disabled: true}, [Validators.required]),
       company: new FormControl({value: '', disabled: true}, [Validators.required]),
       monthYear: new FormControl('',[Validators.required]),
-      monthlyGrossSalary: new FormControl('',[Validators.required,Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
-      hourlyWage: new FormControl('',[Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
-      normalWorkingHours: new FormControl('',[Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
-      nightWorkingHoursDuringWeek: new FormControl('',[Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
-      overtimeDuringWeek: new FormControl('',[Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
-      workingHoursOnWeekend: new FormControl('',[Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
-      nightWorkingHoursDuringWeekend: new FormControl('',[Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
-
-      overtimeDuringWeekend: new FormControl('',[Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
+      monthlyNetSalary: new FormControl('',[Validators.required,Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
       totalPaidDays: new FormControl('',[Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
-      grossSalaryAll: new FormControl('',[Validators.required,Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
-      levelOfInsurance: new FormControl('',[Validators.required,Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
+
+      // hourlyWage: new FormControl('',[Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
+      // normalWorkingHours: new FormControl('',[Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
+      // nightWorkingHoursDuringWeek: new FormControl('',[Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
+      // overtimeDuringWeek: new FormControl('',[Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
+      // workingHoursOnWeekend: new FormControl('',[Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
+      // nightWorkingHoursDuringWeekend: new FormControl('',[Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
+
+      // overtimeDuringWeekend: new FormControl('',[Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
+      // grossSalaryAll: new FormControl('',[Validators.required,Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
+      // levelOfInsurance: new FormControl('',[Validators.required,Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
     })
   }
 
@@ -101,19 +104,20 @@ export class UserAssociateComponent implements OnInit {
             monthYearId = data._id;
             this.emploeyeeService.getCalculationForUserAndYearMonth(monthYearId,this.userId).subscribe( (data) => {      
               if(data){
-                data.monthlyGrossSalary ? this.form.controls['monthlyGrossSalary'].setValue(data.monthlyGrossSalary) : null;
-                data.hourlyWage ? this.form.controls['hourlyWage'].setValue(data.hourlyWage) : null;
-                data.normalWorkingHours ? this.form.controls['normalWorkingHours'].setValue(data.normalWorkingHours) : null;
-                data.nightWorkingHoursDuringWeek ? this.form.controls['nightWorkingHoursDuringWeek'].setValue(data.nightWorkingHoursDuringWeek) : null;
-
-                data.overtimeDuringWeek ? this.form.controls['overtimeDuringWeek'].setValue(data.overtimeDuringWeek) : null;
-                data.workingHoursOnWeekend ? this.form.controls['workingHoursOnWeekend'].setValue(data.workingHoursOnWeekend) : null;
-                data.nightWorkingHoursDuringWeekend ? this.form.controls['nightWorkingHoursDuringWeekend'].setValue(data.nightWorkingHoursDuringWeekend) : null;
-
-                data.overtimeDuringWeekend ? this.form.controls['overtimeDuringWeekend'].setValue(data.overtimeDuringWeekend) : null;
+                data.monthlyNetSalary ? this.form.controls['monthlyNetSalary'].setValue(data.monthlyNetSalary) : null;
                 data.totalPaidDays ? this.form.controls['totalPaidDays'].setValue(data.totalPaidDays) : null;
-                data.grossSalaryAll ? this.form.controls['grossSalaryAll'].setValue(data.grossSalaryAll) : null;
-                data.levelOfInsurance ? this.form.controls['levelOfInsurance'].setValue(data.levelOfInsurance) : null;
+
+                // data.hourlyWage ? this.form.controls['hourlyWage'].setValue(data.hourlyWage) : null;
+                // data.normalWorkingHours ? this.form.controls['normalWorkingHours'].setValue(data.normalWorkingHours) : null;
+                // data.nightWorkingHoursDuringWeek ? this.form.controls['nightWorkingHoursDuringWeek'].setValue(data.nightWorkingHoursDuringWeek) : null;
+
+                // data.overtimeDuringWeek ? this.form.controls['overtimeDuringWeek'].setValue(data.overtimeDuringWeek) : null;
+                // data.workingHoursOnWeekend ? this.form.controls['workingHoursOnWeekend'].setValue(data.workingHoursOnWeekend) : null;
+                // data.nightWorkingHoursDuringWeekend ? this.form.controls['nightWorkingHoursDuringWeekend'].setValue(data.nightWorkingHoursDuringWeekend) : null;
+
+                // data.overtimeDuringWeekend ? this.form.controls['overtimeDuringWeekend'].setValue(data.overtimeDuringWeekend) : null;
+                // data.grossSalaryAll ? this.form.controls['grossSalaryAll'].setValue(data.grossSalaryAll) : null;
+                // data.levelOfInsurance ? this.form.controls['levelOfInsurance'].setValue(data.levelOfInsurance) : null;
 
               }
             })
@@ -148,7 +152,9 @@ export class UserAssociateComponent implements OnInit {
   onUpdate(userId:any){
 
     const calculation1: Calculation = {
-        monthlyGrossSalary: this.form.get("monthlyGrossSalary") ? parseFloat(this.form.get("monthlyGrossSalary").value) : NaN,
+        monthlyNetSalary: this.form.get("monthlyNetSalary") ? parseFloat(this.form.get("monthlyNetSalary").value) : NaN,
+        totalPaidDays: parseFloat(this.form.get("totalPaidDays").value),
+
         hourlyWage: this.form.get("hourlyWage") ? parseFloat(this.form.get("hourlyWage").value) : NaN,
         normalWorkingHours: parseFloat(this.form.get("normalWorkingHours").value),
         nightWorkingHoursDuringWeek: parseFloat(this.form.get("nightWorkingHoursDuringWeek").value),
@@ -158,12 +164,9 @@ export class UserAssociateComponent implements OnInit {
         nightWorkingHoursDuringWeekend: parseFloat(this.form.get("nightWorkingHoursDuringWeekend").value),
 
         overtimeDuringWeekend: parseFloat(this.form.get("overtimeDuringWeekend").value),
-        totalPaidDays: parseFloat(this.form.get("totalPaidDays").value),
         grossSalaryAll: parseFloat(this.form.get("grossSalaryAll").value),
         levelOfInsurance: parseFloat(this.form.get("levelOfInsurance").value),
         user_id: userId
-
-
     }
 
     let objectCalculation: any = {
@@ -176,9 +179,36 @@ export class UserAssociateComponent implements OnInit {
       console.log("update11 ", result);
 
     })
+  }
 
 
+  onCalculate(userId:any) {
+    const netValue = this.form.get("monthlyNetSalary") ? parseFloat(this.form.get("monthlyNetSalary").value) : NaN
+    const totalPaidDays = this.form.get("totalPaidDays") ? parseFloat(this.form.get("totalPaidDays").value) : NaN
+    let bruto;
+    let hourlyWage;
+    bruto = (netValue - 3900)/(1 - TAX.SIGURIME_SHENDETSORE - TAX.SIGURIME_SHOQERORE - TAX.TAP_MID); 
+    
+    hourlyWage = bruto/(totalPaidDays*8);
+    
 
+    const calculation1: Calculation = {
+      monthlyNetSalary: this.form.get("monthlyNetSalary") ? parseFloat(this.form.get("monthlyNetSalary").value) : NaN,
+      grossOfNet: parseFloat(bruto.toFixed(2)),
+      totalPaidDays: totalPaidDays,
+      hourlyWage: parseFloat(hourlyWage.toFixed(2)),
+      user_id: userId
+    }
+
+    let objectCalculation: any = {
+      monthYear: this.form.get("monthYear") ? this.form.get("monthYear").value : null,
+      calculations: calculation1
+    }
+
+    this.emploeyeeService.completeEmployee(objectCalculation).subscribe( (result) => {
+      console.log("update11 ", result);
+
+    })
   }
 
 }

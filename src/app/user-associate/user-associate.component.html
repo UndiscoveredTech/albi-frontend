@@ -6,7 +6,7 @@
       <label for="description">Name: </label>
       <mat-form-field >
         <mat-label>Name</mat-label>
-        <input  id="description" type="text" formControlName="name" matInput required="monthlyGrossSalary">
+        <input  id="description" type="text" formControlName="name" matInput required="monthlyNetSalary">
       </mat-form-field>
     </div>
 
@@ -45,15 +45,22 @@
     </div>
 
     <div>
-      <label for="description">Monthly Gross Salary: </label>
+      <label for="description">Monthly Net Salary: </label>
       <mat-form-field>
-        <mat-label>Monthly Gross Salary</mat-label>
-        <input id="description" type="number" formControlName="monthlyGrossSalary" matInput required="monthlyGrossSalary">
+        <mat-label>Monthly Net Salary</mat-label>
+        <input id="description" type="number" formControlName="monthlyNetSalary" matInput required="monthlyNetSalary">
       </mat-form-field>
     </div>
 
-
     <div>
+      <label for="description">Total PaidDays: </label>
+      <mat-form-field>
+        <mat-label>Total PaidDays</mat-label>
+        <input id="description" type="number" formControlName="totalPaidDays" matInput required="totalPaidDays">
+      </mat-form-field>
+    </div>
+
+    <!-- <div>
       <label for="description">Hourly Wage: </label>
       <mat-form-field>
         <mat-label>Hourly Wage</mat-label>
@@ -111,13 +118,7 @@
     </div>
 
 
-    <div>
-      <label for="description">Total PaidDays: </label>
-      <mat-form-field>
-        <mat-label>Total PaidDays</mat-label>
-        <input id="description" type="number" formControlName="totalPaidDays" matInput required="totalPaidDays">
-      </mat-form-field>
-    </div>
+  
 
     <div>
       <label for="description">Gross SalaryAll: </label>
@@ -133,12 +134,12 @@
         <mat-label>Level OfInsurance</mat-label>
         <input id="description" type="text" formControlName="levelOfInsurance" matInput required="levelOfInsurance">
       </mat-form-field>
-    </div>
+    </div> -->
     
     
 
     <div mat-dialog-actions>
-      <button mat-button type="submit" (click)="onUpdate(userData._id)" cdkFocusInitial [disabled]="form.invalid">Save</button>
+      <button mat-button type="submit" (click)="onCalculate(userData._id)" cdkFocusInitial [disabled]="form.invalid">LLOGARIT</button>
     </div>  
   </form>
 
