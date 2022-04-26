@@ -1,150 +1,165 @@
 <div class="container">
-<div class="associate-box" *ngIf="userData">
-  <form [formGroup]="form">
-
-    <div>
-      <label for="description">Name: </label>
-      <mat-form-field >
-        <mat-label>Name</mat-label>
-        <input  id="description" type="text" formControlName="name" matInput required="monthlyNetSalary">
-      </mat-form-field>
-    </div>
-
-    <div >
-      <label for="description">Email: </label>
-      <mat-form-field >
-        <mat-label>Email</mat-label>
-        <input type="email" formControlName="email" matInput required>
-      </mat-form-field>
-    </div>
-
-    <div>
-      <label for="description">Company: </label>
-      <mat-form-field>
-          <mat-select  [disabled] = "true" matInput formControlName="company" >
-              <mat-option  *ngFor="let company of companyList" [value]="company.name">
-                  {{company.name}}
-              </mat-option>
-          </mat-select>
-      </mat-form-field>
-
-    </div>
-
-    <div>
-      <label for="description">MonthYear: </label>
+  <div class="associate-box" *ngIf="userData">
+    <form [formGroup]="form">
   
+      <div>
+        <label for="description">Name: </label>
+        <mat-form-field >
+          <mat-label>Name</mat-label>
+          <input  id="description" type="text" formControlName="name" matInput required="monthlyNetSalary">
+        </mat-form-field>
+      </div>
+  
+      <div >
+        <label for="description">Email: </label>
+        <mat-form-field >
+          <mat-label>Email</mat-label>
+          <input type="email" formControlName="email" matInput required>
+        </mat-form-field>
+      </div>
+  
+      <div>
+        <label for="description">Company: </label>
         <mat-form-field>
-          <mat-label>Month and Year</mat-label>
-            <mat-select matInput formControlName="monthYear" >
-              
-                <mat-option  *ngFor="let monthyearItem of monthYearList" [value]="monthyearItem._id">
-                    {{monthyearItem.month}} - {{monthyearItem.year}}
+            <mat-select  [disabled] = "true" matInput formControlName="company" >
+                <mat-option  *ngFor="let company of companyList" [value]="company.name">
+                    {{company.name}}
                 </mat-option>
             </mat-select>
         </mat-form-field>
-    </div>
-
-    <div>
-      <label for="description">Monthly Net Salary: </label>
-      <mat-form-field>
-        <mat-label>Monthly Net Salary</mat-label>
-        <input id="description" type="number" formControlName="monthlyNetSalary" matInput required="monthlyNetSalary">
-      </mat-form-field>
-    </div>
-
-    <div>
-      <label for="description">Total PaidDays: </label>
-      <mat-form-field>
-        <mat-label>Total PaidDays</mat-label>
-        <input id="description" type="number" formControlName="totalPaidDays" matInput required="totalPaidDays">
-      </mat-form-field>
-    </div>
-
-    <!-- <div>
-      <label for="description">Hourly Wage: </label>
-      <mat-form-field>
-        <mat-label>Hourly Wage</mat-label>
-        <input id="description" type="number" formControlName="hourlyWage" matInput required="hourlyWage">
-      </mat-form-field>
-    </div>
-
-    <div>
-        <label for="description">Normal WorkingHours: </label>
+  
+      </div>
+  
+      <div>
+        <label for="description">MonthYear: </label>
+    
+          <mat-form-field>
+            <mat-label>Month and Year</mat-label>
+              <mat-select matInput formControlName="monthYear" >
+                
+                  <mat-option  *ngFor="let monthyearItem of monthYearList" [value]="monthyearItem._id">
+                      {{monthyearItem.month}} - {{monthyearItem.year}}
+                  </mat-option>
+              </mat-select>
+          </mat-form-field>
+      </div>
+  
+      <div>
+        <label for="description">Monthly Net Salary: </label>
         <mat-form-field>
-          <mat-label>Normal WorkingHours</mat-label>
+          <mat-label>Monthly Net Salary</mat-label>
+          <input id="description" type="number" formControlName="monthlyNetSalary" matInput required="monthlyNetSalary">
+        </mat-form-field>
+      </div>
+  
+      <div>
+        <label for="description">Total Paid Days: </label>
+        <mat-form-field>
+          <mat-label>Total Paid Days</mat-label>
+          <input id="description" type="number" formControlName="totalPaidDays" matInput required="totalPaidDays">
+        </mat-form-field>
+      </div>
+  
+      <div>
+        <label for="description">Normal Working Hours (07:00-15:00) </label>
+        <mat-form-field>
+          <mat-label>Normal Working Hours</mat-label>
           <input id="description" type="number" formControlName="normalWorkingHours" matInput required="normalWorkingHours">
         </mat-form-field>
     </div>
-
     <div>
-      <label for="description">WorkingHours During Night: </label>
+      <label for="description">Overtime During Week (15:00-19:00 + 06:00-07:00) </label>
       <mat-form-field>
-        <mat-label>WorkingHours During Night</mat-label>
-        <input id="description" type="number" formControlName="nightWorkingHoursDuringWeek" matInput required="nightWorkingHoursDuringWeek" >
+        <mat-label>Overtime During Week</mat-label>
+        <input id="description" type="number" formControlName="overtimeDuringWeek25" matInput required="overtimeDuringWeek25">
       </mat-form-field>
     </div>
-    
-
     <div>
-      <label for="description">Overtime DuringWeek: </label>
+      <label for="description">Overtime During Week (22:00-06:00) </label>
       <mat-form-field>
-        <mat-label>Overtime DuringWeek</mat-label>
-        <input id="description" type="number" formControlName="overtimeDuringWeek" matInput required="overtimeDuringWeek">
+        <mat-label>Overtime During Week</mat-label>
+        <input id="description" type="number" formControlName="overtimeDuringWeek50" matInput required="overtimeDuringWeek50">
       </mat-form-field>
     </div>
-
+  
     <div>
-      <label for="description">Working HoursOnWeekend: </label>
+      <label for="description">Week Working Hours (19:00-22:00) </label>
       <mat-form-field>
-        <mat-label>Working HoursOnWeekend</mat-label>
+        <mat-label>Week Working Hours (19:00-22:00)</mat-label>
+        <input id="description" type="number" formControlName="weekWorkinghours19_20" matInput required="weekWorkinghours19_20" >
+      </mat-form-field>
+    </div>
+  
+    <div>
+      <label for="description">Working Hours On Saturdays and Sundays </label>
+      <mat-form-field>
+        <mat-label>Working Hours On Saturdays and Sundays</mat-label>
         <input id="description" type="number" formControlName="workingHoursOnWeekend" matInput required="workingHoursOnWeekend">
       </mat-form-field>
     </div>
-
-    <div>
-      <label for="description">WorkingHours During Night Weekend: </label>
-      <mat-form-field>
-        <mat-label>WorkingHours During Night Weekend</mat-label>
-        <input id="description" type="number" formControlName="nightWorkingHoursDuringWeekend" matInput required="nightWorkingHoursDuringWeekend">
-      </mat-form-field>
-    </div>
-
-    <div>
-      <label for="description">Overtime DuringWeekend: </label>
-      <mat-form-field>
-        <mat-label>Overtime DuringWeekend</mat-label>
-        <input id="description" type="number" formControlName="overtimeDuringWeekend" matInput required="overtimeDuringWeekend">
-      </mat-form-field>
-    </div>
-
-
   
-
     <div>
-      <label for="description">Gross SalaryAll: </label>
+      <label for="description">Overtime On Saturdays and Sundays </label>
       <mat-form-field>
-        <mat-label>Gross SalaryAll</mat-label>
-        <input id="description" type="number" formControlName="grossSalaryAll" matInput required="grossSalaryAll">
+        <mat-label>Overtime On Saturdays and Sundays</mat-label>
+        <input id="description" type="number" formControlName="overtimeWeekend" matInput required="overtimeWeekend">
       </mat-form-field>
     </div>
-
-    <div>
-      <label for="description">Level OfInsurance: </label>
-      <mat-form-field>
-        <mat-label>Level OfInsurance</mat-label>
-        <input id="description" type="text" formControlName="levelOfInsurance" matInput required="levelOfInsurance">
-      </mat-form-field>
-    </div> -->
+      <!-- <div>
+        <label for="description">Hourly Wage: </label>
+        <mat-form-field>
+          <mat-label>Hourly Wage</mat-label>
+          <input id="description" type="number" formControlName="hourlyWage" matInput required="hourlyWage">
+        </mat-form-field>
+      </div>
+  
+  
+      
+  
+      <div>
+        <label for="description">WorkingHours During Night Weekend: </label>
+        <mat-form-field>
+          <mat-label>WorkingHours During Night Weekend</mat-label>
+          <input id="description" type="number" formControlName="nightWorkingHoursDuringWeekend" matInput required="nightWorkingHoursDuringWeekend">
+        </mat-form-field>
+      </div>
+  
+      <div>
+        <label for="description">Overtime DuringWeekend: </label>
+        <mat-form-field>
+          <mat-label>Overtime DuringWeekend</mat-label>
+          <input id="description" type="number" formControlName="overtimeDuringWeekend" matInput required="overtimeDuringWeekend">
+        </mat-form-field>
+      </div>
+  
+  
     
-    
-
-    <div mat-dialog-actions>
-      <button mat-button type="submit" (click)="onCalculate(userData._id)" cdkFocusInitial [disabled]="form.invalid">LLOGARIT</button>
-    </div>  
-  </form>
-
-            
-
-
-</div>
-</div>
+  
+      <div>
+        <label for="description">Gross SalaryAll: </label>
+        <mat-form-field>
+          <mat-label>Gross SalaryAll</mat-label>
+          <input id="description" type="number" formControlName="grossSalaryAll" matInput required="grossSalaryAll">
+        </mat-form-field>
+      </div>
+  
+      <div>
+        <label for="description">Level OfInsurance: </label>
+        <mat-form-field>
+          <mat-label>Level OfInsurance</mat-label>
+          <input id="description" type="text" formControlName="levelOfInsurance" matInput required="levelOfInsurance">
+        </mat-form-field>
+      </div> -->
+      
+      
+  
+      <div mat-dialog-actions>
+        <button mat-button type="submit" (click)="onCalculate(userData._id)" cdkFocusInitial [disabled]="form.invalid">LLOGARIT</button>
+      </div>  
+    </form>
+  
+              
+  
+  
+  </div>
+  </div>

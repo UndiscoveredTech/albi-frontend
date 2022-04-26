@@ -14,11 +14,12 @@ interface Calculation {
   grossOfNet?: Number,
   hourlyWage?: Number,
   normalWorkingHours?: Number,
-  nightWorkingHoursDuringWeek?: Number,
-  overtimeDuringWeek?: Number,
+  weekWorkinghours19_20?: Number,
+  overtimeDuringWeek25?: Number,
+  overtimeDuringWeek50?: Number,
   workingHoursOnWeekend?: Number,
   nightWorkingHoursDuringWeekend?: Number,
-  overtimeDuringWeekend?: Number,
+  overtimeWeekend?: Number,
   totalPaidDays?: Number,
   grossSalaryAll?: Number,
   levelOfInsurance?: Number,
@@ -68,15 +69,19 @@ export class UserAssociateComponent implements OnInit {
       monthYear: new FormControl('',[Validators.required]),
       monthlyNetSalary: new FormControl('',[Validators.required,Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
       totalPaidDays: new FormControl('',[Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
+      normalWorkingHours: new FormControl('',[Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
+      overtimeDuringWeek25: new FormControl('',[Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
+      overtimeDuringWeek50: new FormControl('',[Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
+      weekWorkinghours19_20: new FormControl('',[Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
+      workingHoursOnWeekend: new FormControl('',[Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
+      overtimeWeekend: new FormControl('',[Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
+
 
       // hourlyWage: new FormControl('',[Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
-      // normalWorkingHours: new FormControl('',[Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
-      // nightWorkingHoursDuringWeek: new FormControl('',[Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
-      // overtimeDuringWeek: new FormControl('',[Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
-      // workingHoursOnWeekend: new FormControl('',[Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
+      
+
       // nightWorkingHoursDuringWeekend: new FormControl('',[Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
 
-      // overtimeDuringWeekend: new FormControl('',[Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
       // grossSalaryAll: new FormControl('',[Validators.required,Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
       // levelOfInsurance: new FormControl('',[Validators.required,Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
     })
@@ -106,16 +111,21 @@ export class UserAssociateComponent implements OnInit {
               if(data){
                 data.monthlyNetSalary ? this.form.controls['monthlyNetSalary'].setValue(data.monthlyNetSalary) : null;
                 data.totalPaidDays ? this.form.controls['totalPaidDays'].setValue(data.totalPaidDays) : null;
+                data.normalWorkingHours ? this.form.controls['normalWorkingHours'].setValue(data.normalWorkingHours) : null;
+                data.overtimeDuringWeek25 ? this.form.controls['overtimeDuringWeek25'].setValue(data.overtimeDuringWeek25) : null;
+                data.overtimeDuringWeek50 ? this.form.controls['overtimeDuringWeek50'].setValue(data.overtimeDuringWeek50) : null;
+                data.weekWorkinghours19_20 ? this.form.controls['weekWorkinghours19_20'].setValue(data.weekWorkinghours19_20) : null;
+                data.workingHoursOnWeekend ? this.form.controls['workingHoursOnWeekend'].setValue(data.workingHoursOnWeekend) : null;
+                data.overtimeWeekend ? this.form.controls['overtimeWeekend'].setValue(data.overtimeWeekend) : null;
+
 
                 // data.hourlyWage ? this.form.controls['hourlyWage'].setValue(data.hourlyWage) : null;
-                // data.normalWorkingHours ? this.form.controls['normalWorkingHours'].setValue(data.normalWorkingHours) : null;
-                // data.nightWorkingHoursDuringWeek ? this.form.controls['nightWorkingHoursDuringWeek'].setValue(data.nightWorkingHoursDuringWeek) : null;
+                
 
-                // data.overtimeDuringWeek ? this.form.controls['overtimeDuringWeek'].setValue(data.overtimeDuringWeek) : null;
-                // data.workingHoursOnWeekend ? this.form.controls['workingHoursOnWeekend'].setValue(data.workingHoursOnWeekend) : null;
+                
+
                 // data.nightWorkingHoursDuringWeekend ? this.form.controls['nightWorkingHoursDuringWeekend'].setValue(data.nightWorkingHoursDuringWeekend) : null;
 
-                // data.overtimeDuringWeekend ? this.form.controls['overtimeDuringWeekend'].setValue(data.overtimeDuringWeekend) : null;
                 // data.grossSalaryAll ? this.form.controls['grossSalaryAll'].setValue(data.grossSalaryAll) : null;
                 // data.levelOfInsurance ? this.form.controls['levelOfInsurance'].setValue(data.levelOfInsurance) : null;
 
@@ -157,13 +167,15 @@ export class UserAssociateComponent implements OnInit {
 
         hourlyWage: this.form.get("hourlyWage") ? parseFloat(this.form.get("hourlyWage").value) : NaN,
         normalWorkingHours: parseFloat(this.form.get("normalWorkingHours").value),
-        nightWorkingHoursDuringWeek: parseFloat(this.form.get("nightWorkingHoursDuringWeek").value),
+        weekWorkinghours19_20: parseFloat(this.form.get("weekWorkinghours19_20").value),
 
-        overtimeDuringWeek: parseFloat(this.form.get("overtimeDuringWeek").value),
+        overtimeDuringWeek25: parseFloat(this.form.get("overtimeDuringWeek25").value),
+        overtimeDuringWeek50: parseFloat(this.form.get("overtimeDuringWeek50").value),
+
         workingHoursOnWeekend: parseFloat(this.form.get("workingHoursOnWeekend").value),
         nightWorkingHoursDuringWeekend: parseFloat(this.form.get("nightWorkingHoursDuringWeekend").value),
 
-        overtimeDuringWeekend: parseFloat(this.form.get("overtimeDuringWeekend").value),
+        overtimeWeekend: parseFloat(this.form.get("overtimeWeekend").value),
         grossSalaryAll: parseFloat(this.form.get("grossSalaryAll").value),
         levelOfInsurance: parseFloat(this.form.get("levelOfInsurance").value),
         user_id: userId
@@ -183,6 +195,7 @@ export class UserAssociateComponent implements OnInit {
 
 
   onCalculate(userId:any) {
+   
     const netValue = this.form.get("monthlyNetSalary") ? parseFloat(this.form.get("monthlyNetSalary").value) : NaN
     const totalPaidDays = this.form.get("totalPaidDays") ? parseFloat(this.form.get("totalPaidDays").value) : NaN
     let bruto;
@@ -194,6 +207,12 @@ export class UserAssociateComponent implements OnInit {
 
     const calculation1: Calculation = {
       monthlyNetSalary: this.form.get("monthlyNetSalary") ? parseFloat(this.form.get("monthlyNetSalary").value) : NaN,
+      normalWorkingHours: this.form.get("normalWorkingHours") ? parseFloat(this.form.get("normalWorkingHours").value) : NaN,
+      weekWorkinghours19_20: this.form.get("weekWorkinghours19_20") ? parseFloat(this.form.get("weekWorkinghours19_20").value) : NaN,
+      overtimeDuringWeek25: this.form.get("overtimeDuringWeek25") ? parseFloat(this.form.get("overtimeDuringWeek25").value) : NaN,
+      overtimeDuringWeek50: this.form.get("overtimeDuringWeek50") ? parseFloat(this.form.get("overtimeDuringWeek50").value) : NaN,
+      workingHoursOnWeekend: this.form.get("workingHoursOnWeekend") ? parseFloat(this.form.get("workingHoursOnWeekend").value) : NaN,
+      overtimeWeekend: this.form.get("overtimeWeekend") ? parseFloat(this.form.get("overtimeWeekend").value) : NaN,
       grossOfNet: parseFloat(bruto.toFixed(2)),
       totalPaidDays: totalPaidDays,
       hourlyWage: parseFloat(hourlyWage.toFixed(2)),
