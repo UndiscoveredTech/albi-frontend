@@ -22,7 +22,7 @@ interface Calculation {
   overtimeWeekend?: Number,
   totalPaidDays?: Number,
   grossSalaryAll?: Number,
-  levelOfInsurance?: Number,
+  paidHoliday?: Number,
   user_id?: String
 }
 
@@ -75,6 +75,7 @@ export class UserAssociateComponent implements OnInit {
       weekWorkinghours19_20: new FormControl('',[Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
       workingHoursOnWeekend: new FormControl('',[Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
       overtimeWeekend: new FormControl('',[Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
+      paidHoliday: new FormControl('',[Validators.required,Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
 
 
       // hourlyWage: new FormControl('',[Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
@@ -83,7 +84,6 @@ export class UserAssociateComponent implements OnInit {
       // nightWorkingHoursDuringWeekend: new FormControl('',[Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
 
       // grossSalaryAll: new FormControl('',[Validators.required,Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
-      // levelOfInsurance: new FormControl('',[Validators.required,Validators.pattern(/^-?(0|[1-9]\d*)?$/)]),
     })
   }
 
@@ -117,6 +117,7 @@ export class UserAssociateComponent implements OnInit {
                 data.weekWorkinghours19_20 ? this.form.controls['weekWorkinghours19_20'].setValue(data.weekWorkinghours19_20) : null;
                 data.workingHoursOnWeekend ? this.form.controls['workingHoursOnWeekend'].setValue(data.workingHoursOnWeekend) : null;
                 data.overtimeWeekend ? this.form.controls['overtimeWeekend'].setValue(data.overtimeWeekend) : null;
+                data.paidHoliday ? this.form.controls['paidHoliday'].setValue(data.paidHoliday) : null;
 
 
                 // data.hourlyWage ? this.form.controls['hourlyWage'].setValue(data.hourlyWage) : null;
@@ -127,7 +128,6 @@ export class UserAssociateComponent implements OnInit {
                 // data.nightWorkingHoursDuringWeekend ? this.form.controls['nightWorkingHoursDuringWeekend'].setValue(data.nightWorkingHoursDuringWeekend) : null;
 
                 // data.grossSalaryAll ? this.form.controls['grossSalaryAll'].setValue(data.grossSalaryAll) : null;
-                // data.levelOfInsurance ? this.form.controls['levelOfInsurance'].setValue(data.levelOfInsurance) : null;
 
               }
             })
@@ -177,7 +177,7 @@ export class UserAssociateComponent implements OnInit {
 
         overtimeWeekend: parseFloat(this.form.get("overtimeWeekend").value),
         grossSalaryAll: parseFloat(this.form.get("grossSalaryAll").value),
-        levelOfInsurance: parseFloat(this.form.get("levelOfInsurance").value),
+        paidHoliday: parseFloat(this.form.get("paidHoliday").value),
         user_id: userId
     }
 
@@ -198,24 +198,38 @@ export class UserAssociateComponent implements OnInit {
    
     const netValue = this.form.get("monthlyNetSalary") ? parseFloat(this.form.get("monthlyNetSalary").value) : NaN
     const totalPaidDays = this.form.get("totalPaidDays") ? parseFloat(this.form.get("totalPaidDays").value) : NaN
+    const normalWorkingHours = this.form.get("normalWorkingHours") ? parseFloat(this.form.get("normalWorkingHours").value) : NaN
+    const weekWorkinghours19_20 = this.form.get("weekWorkinghours19_20") ? parseFloat(this.form.get("weekWorkinghours19_20").value) : NaN
+    const overtimeDuringWeek25 = this.form.get("overtimeDuringWeek25") ? parseFloat(this.form.get("overtimeDuringWeek25").value) : NaN
+    const overtimeDuringWeek50 = this.form.get("overtimeDuringWeek50") ? parseFloat(this.form.get("overtimeDuringWeek50").value) : NaN
+    const workingHoursOnWeekend = this.form.get("workingHoursOnWeekend") ? parseFloat(this.form.get("workingHoursOnWeekend").value) : NaN
+    const overtimeWeekend = this.form.get("overtimeWeekend") ? parseFloat(this.form.get("overtimeWeekend").value) : NaN
+    const paidHoliday = this.form.get("paidHoliday") ? parseFloat(this.form.get("paidHoliday").value) : NaN
+debugger
     let bruto;
     let hourlyWage;
+    let grossSalaryAll;
+
     bruto = (netValue - 3900)/(1 - TAX.SIGURIME_SHENDETSORE - TAX.SIGURIME_SHOQERORE - TAX.TAP_MID); 
     
     hourlyWage = bruto/(totalPaidDays*8);
+
+    grossSalaryAll = (hourlyWage*normalWorkingHours)+(hourlyWage*overtimeDuringWeek25*1.25)+(hourlyWage*overtimeDuringWeek50*1.5)+(hourlyWage*weekWorkinghours19_20*1.2)+(hourlyWage*workingHoursOnWeekend*1.25)+(hourlyWage*overtimeWeekend*1.5)+bruto/21*paidHoliday;
+
     
 
     const calculation1: Calculation = {
-      monthlyNetSalary: this.form.get("monthlyNetSalary") ? parseFloat(this.form.get("monthlyNetSalary").value) : NaN,
-      normalWorkingHours: this.form.get("normalWorkingHours") ? parseFloat(this.form.get("normalWorkingHours").value) : NaN,
-      weekWorkinghours19_20: this.form.get("weekWorkinghours19_20") ? parseFloat(this.form.get("weekWorkinghours19_20").value) : NaN,
-      overtimeDuringWeek25: this.form.get("overtimeDuringWeek25") ? parseFloat(this.form.get("overtimeDuringWeek25").value) : NaN,
-      overtimeDuringWeek50: this.form.get("overtimeDuringWeek50") ? parseFloat(this.form.get("overtimeDuringWeek50").value) : NaN,
-      workingHoursOnWeekend: this.form.get("workingHoursOnWeekend") ? parseFloat(this.form.get("workingHoursOnWeekend").value) : NaN,
-      overtimeWeekend: this.form.get("overtimeWeekend") ? parseFloat(this.form.get("overtimeWeekend").value) : NaN,
+      monthlyNetSalary: netValue,
+      normalWorkingHours: normalWorkingHours,
+      weekWorkinghours19_20: weekWorkinghours19_20,
+      overtimeDuringWeek25: overtimeDuringWeek25,
+      overtimeDuringWeek50: overtimeDuringWeek50,
+      workingHoursOnWeekend: workingHoursOnWeekend,
+      overtimeWeekend: overtimeWeekend,
       grossOfNet: parseFloat(bruto.toFixed(2)),
       totalPaidDays: totalPaidDays,
       hourlyWage: parseFloat(hourlyWage.toFixed(2)),
+      grossSalaryAll: parseFloat(grossSalaryAll.toFixed(2)),
       user_id: userId
     }
 
