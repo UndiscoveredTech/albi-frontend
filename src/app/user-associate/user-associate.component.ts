@@ -44,6 +44,7 @@ interface Calculation {
 
   
   exchangeRate?: Number,
+  emploeyeeName?: String,
   user_id?: String
 }
 
@@ -132,9 +133,9 @@ export class UserAssociateComponent implements OnInit {
                 data.overtimeDuringWeek25 ? this.form.controls['overtimeDuringWeek25'].setValue(data.overtimeDuringWeek25) : null;
                 data.overtimeDuringWeek50 ? this.form.controls['overtimeDuringWeek50'].setValue(data.overtimeDuringWeek50) : null;
                 data.weekWorkinghours19_20 ? this.form.controls['weekWorkinghours19_20'].setValue(data.weekWorkinghours19_20) : null;
-                data.workingHoursOnWeekend ? this.form.controls['workingHoursOnWeekend'].setValue(data.workingHoursOnWeekend) : null;
+                data.workingHoursOnWeekend != null ? this.form.controls['workingHoursOnWeekend'].setValue(data.workingHoursOnWeekend) : null;
                 data.overtimeWeekend ? this.form.controls['overtimeWeekend'].setValue(data.overtimeWeekend) : null;
-                data.paidHoliday ? this.form.controls['paidHoliday'].setValue(data.paidHoliday) : null;
+                data.paidHoliday != null ? this.form.controls['paidHoliday'].setValue(data.paidHoliday) : null;
                 data.exchangeRate ? this.form.controls['exchangeRate'].setValue(data.exchangeRate) : null;
 
 
@@ -198,6 +199,8 @@ export class UserAssociateComponent implements OnInit {
 
 
   onCalculate(userId:any) {
+    let emploeyeeName = this.form.get("name").value;
+
    
     const netValueEU = this.form.get("monthlyNetSalary") ? parseFloat(this.form.get("monthlyNetSalary").value) : NaN
     const totalPaidDays = this.form.get("totalPaidDays") ? parseFloat(this.form.get("totalPaidDays").value) : NaN
@@ -235,7 +238,7 @@ export class UserAssociateComponent implements OnInit {
     let totalWithoutVAT;
     let VAT = 0;
     let totalWithVAT;
-    debugger
+   
     netValueLEK = netValueEU*exchangeRate;
     bruto = (netValueLEK - 3900)/(1 - TAX.SIGURIME_SHENDETSORE - TAX.SIGURIME_SHOQERORE - TAX.TAP_MID);
     
@@ -283,14 +286,43 @@ export class UserAssociateComponent implements OnInit {
     bonusMonthlyNet = (netValueLEK/21*7);
     netSalaryPlusBonus = netSalaryCOMAll + bonusWeeklyNet;
     brutoOfNewNetValue = (netSalaryPlusBonus - 3900)/(1 - TAX.SIGURIME_SHENDETSORE - TAX.SIGURIME_SHOQERORE - TAX.TAP_MID); 
+    levelOfSocInsurance = this.calculateBonusNewNetValue(bonusWeeklyNet,grossSalaryAll,incomeTax,brutoOfNewNetValue);
+
+  // -----------------------------------------return again to calculate start---------------------------------------------
+
+  socInsurance = levelOfSocInsurance*TAX.SIGURIME_SHOQERORE;
+  healthInsurance = levelOfSocInsurance*TAX.SIGURIME_SHENDETSORE;
+  totalInsurance = socInsurance + healthInsurance;
+
+  socInsuranceCOM = levelOfSocInsurance*0.15;
+  healthInsuranceCOM = levelOfSocInsurance*TAX.SIGURIME_SHENDETSORE;
+  totalInsuranceCOM = socInsuranceCOM + healthInsuranceCOM;
+
+
+  if(brutoOfNewNetValue > 30000 && brutoOfNewNetValue < 150000){
+    incomeTax = (brutoOfNewNetValue - 30000)* TAX.TAP_MID;
+  }
+  else if(brutoOfNewNetValue > 150000){
+    incomeTax = (brutoOfNewNetValue - 150000)*TAX.TAP_TOP + 15600;
+  }
+  else if(brutoOfNewNetValue < 30000){
+    incomeTax = 0;
+  }
+
+  netSalaryCOMAll = brutoOfNewNetValue - totalInsurance - incomeTax;
+  netSalaryCOMEuro = netSalaryCOMAll/exchangeRate;
+
+  // -----------------------------------------return again to calculate end---------------------------------------------
+
+
     bonusBruto = brutoOfNewNetValue - grossSalaryAll;
     costOfEmployer = (brutoOfNewNetValue + totalInsuranceCOM)/exchangeRate;
     agencyComision = costOfEmployer*0.09;
     totalWithoutVAT = costOfEmployer + agencyComision;
     totalWithVAT = totalWithoutVAT + VAT;
     salaryBeforeIncomeLEK = brutoOfNewNetValue;
-    console.log(bonusBruto);
-
+    
+      
 
     const calculation1: Calculation = {
       monthlyNetSalary: netValueEU,
@@ -326,6 +358,8 @@ export class UserAssociateComponent implements OnInit {
       totalWithVAT: totalWithVAT,
 
       exchangeRate: exchangeRate,
+
+      emploeyeeName: emploeyeeName,
       user_id: userId
     }
 
@@ -340,4 +374,30 @@ export class UserAssociateComponent implements OnInit {
     })
   }
 
+
+  calculateBonusNewNetValue = (bonusWeeklyNet: any, grossSalary: any, incomeTax: any,brutoofNew:any) => {
+
+    let TOPVALUE:any = 132312;
+    let BOTTOMVALUE:any = 30000;
+    let levelOfSocInsurance_ = TOPVALUE;
+
+    let bonusofNetNetSalary:any = 0;
+    bonusofNetNetSalary = (grossSalary - levelOfSocInsurance_* (TAX.SIGURIME_SHENDETSORE + TAX.SIGURIME_SHOQERORE) - incomeTax + bonusWeeklyNet - 3900)/(1 - TAX.SIGURIME_SHENDETSORE - TAX.SIGURIME_SHOQERORE - TAX.TAP_MID);
+
+    if(bonusofNetNetSalary > TOPVALUE){
+      return TOPVALUE;
+    } else{
+      levelOfSocInsurance_ = BOTTOMVALUE;
+      bonusofNetNetSalary = (grossSalary - levelOfSocInsurance_* (TAX.SIGURIME_SHENDETSORE + TAX.SIGURIME_SHOQERORE) - incomeTax + bonusWeeklyNet - 3900)/ (1 - TAX.SIGURIME_SHENDETSORE - TAX.SIGURIME_SHOQERORE - TAX.TAP_MID);
+      if(bonusofNetNetSalary < BOTTOMVALUE){
+        return BOTTOMVALUE;
+      } else{
+        return  brutoofNew;
+      }
+    }
+
+
+    
+
+  }
 }
