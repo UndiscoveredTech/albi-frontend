@@ -27,6 +27,7 @@ import { UsersComponent } from './users/users.component';
 import { MatSelectModule } from '@angular/material/select';
 import { ViewCompanyComponent } from './view-company/view-company.component';
 import { SettingsComponent, NewSettingsDialoguComponent } from './settings/settings.component';
+import { AuthGuardServiceService } from './_services/authguardService/auth-guard-service.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -69,7 +70,12 @@ import { SettingsComponent, NewSettingsDialoguComponent } from './settings/setti
 
     
   ],
-  providers: [authInterceptorProviders, {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}, {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'fill'}}],
+  providers: [
+    authInterceptorProviders, 
+    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}},
+    {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'fill'}},
+    AuthGuardServiceService
+    ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   
   

@@ -12,19 +12,20 @@ import { UsersComponent } from './users/users.component';
 import { UserAssociateComponent } from './user-associate/user-associate.component';
 import { ViewCompanyComponent } from './view-company/view-company.component';
 import { SettingsComponent } from './settings/settings.component';
+import { AuthenticationGuard } from './shared/authentication/authentication.guard';
 const routes: Routes = [
-  { path: 'home', component: HomeComponent },
-  { path: 'company', component: CompanyComponent},
-  { path: 'company/view/:id', component: ViewCompanyComponent },
-  { path: 'employee', component: UsersComponent},
-  { path: 'employee/associate/:id', component: UserAssociateComponent },
+  { path: 'home', component: HomeComponent,canActivate:[AuthenticationGuard] },
+  { path: 'company', component: CompanyComponent,canActivate:[AuthenticationGuard]},
+  { path: 'company/view/:id', component: ViewCompanyComponent,canActivate:[AuthenticationGuard] },
+  { path: 'employee', component: UsersComponent,canActivate:[AuthenticationGuard]},
+  { path: 'employee/associate/:id', component: UserAssociateComponent,canActivate:[AuthenticationGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'profile', component: ProfileComponent },
-  { path: 'user', component: BoardUserComponent },
-  { path: 'mod', component: BoardModeratorComponent },
-  { path: 'admin', component: BoardAdminComponent },
-  { path: 'settings', component: SettingsComponent },
+  { path: 'profile', component: ProfileComponent ,canActivate:[AuthenticationGuard]},
+  { path: 'user', component: BoardUserComponent,canActivate:[AuthenticationGuard] },
+  { path: 'mod', component: BoardModeratorComponent ,canActivate:[AuthenticationGuard]},
+  { path: 'admin', component: BoardAdminComponent,canActivate:[AuthenticationGuard] },
+  { path: 'settings', component: SettingsComponent ,canActivate:[AuthenticationGuard]},
   { path: '', redirectTo: 'login', pathMatch: 'full' }
   
 ];
