@@ -1,9 +1,10 @@
 .form-signInOut {
 
-    width: 50%;
+    width: 100%;
+    max-width: 600px;
     position: relative;
-    transform: translate(-50%, -50%);
-    top: 50%;
+    transform: translateX(-50%);
+    margin-top: 100px;
     left: 50%;
 }
 .form-sign {

@@ -127,6 +127,9 @@ export class UserAssociateComponent implements OnInit {
     })
   }
 
+
+
+
   loadForm(){
     let monthYear: MonthYear;
     const d = new Date();
@@ -363,7 +366,6 @@ export class UserAssociateComponent implements OnInit {
 
     })
   }
-
 
   
 }
