@@ -1,0 +1,24 @@
+<h1 mat-dialog-title>New Salary</h1>
+<div mat-dialog-content>
+  <form [formGroup]="settingsForm" class="form-company">
+  <mat-form-field>
+    <mat-label>Salary</mat-label>
+    <input id="salary" type="number" matInput required="true" formControlName="salary">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Bonus Day</mat-label>
+    <input id="bonusDay" type="number" matInput required="true" formControlName="bonusDay">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Boonus Night</mat-label>
+    <input id="bonusNight" type="number" matInput required="true" formControlName="bonusNight">
+  </mat-form-field>
+
+
+  </form>
+  
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button (click)="onSubmit()" cdkFocusInitial>Ok</button>
+</div>

@@ -1,5 +1,5 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -26,6 +26,7 @@ import { UserAssociateComponent } from './user-associate/user-associate.componen
 import { UsersComponent } from './users/users.component';
 import { MatSelectModule } from '@angular/material/select';
 import { ViewCompanyComponent } from './view-company/view-company.component';
+import { SettingsComponent, NewSettingsDialoguComponent } from './settings/settings.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,6 +43,8 @@ import { ViewCompanyComponent } from './view-company/view-company.component';
     UserAssociateComponent,
     UsersComponent,
     ViewCompanyComponent,
+    SettingsComponent,
+    NewSettingsDialoguComponent,
 
     
   ],

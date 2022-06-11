@@ -12,25 +12,26 @@
     </mat-form-field>
     <!-- <input id="emri" type="text" formControlName="emri"> -->
   
-    <label for="description">Email: </label>
+    <label>Bank Account:</label>
     <mat-form-field>
-      <mat-label>Email</mat-label>
-      <input id="description" type="text" formControlName="email" matInput required="true">
+      <mat-label>Bank Account</mat-label>
+      <input  type="text" formControlName="bankaccount" matInput required="true">
     </mat-form-field>
 
-    <label for="description">Company: </label>
+    <label>Company: </label>
   
         <mat-form-field>
           <mat-label>Choose Company</mat-label>
             <mat-select matInput formControlName="company" >
               
                  
-                <mat-option  *ngFor="let company of companyList" [value]="company._id">
+                <mat-option  *ngFor="let company of companyList" [value]="company._id" alt="company.name">
                     {{company.name}}
                 </mat-option>
             </mat-select>
         </mat-form-field>
-
+  
+    
         
   
   </form>

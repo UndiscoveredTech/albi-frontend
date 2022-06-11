@@ -5,6 +5,8 @@ import { UserService } from '../_services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CreateEmployeeComponent } from '../create-employee/create-employee.component';
 import { EmployeeService } from '../_services/employee.service';
+import { CompanyService } from '../_services/company.service';
+
 
 
 @Component({
@@ -14,11 +16,11 @@ import { EmployeeService } from '../_services/employee.service';
 })
 export class UsersComponent implements OnInit {
 
-  displayedColumns: string[] = ['index','username', 'email', 'company', 'action'];
+  displayedColumns: string[] = ['index','username', 'bankaccount', 'company', 'action'];
   dataSource: any;
-
+  companyName: any;
   constructor(private userService: UserService,
-     public dialog: MatDialog,private router: Router,private route: ActivatedRoute, private employeeService: EmployeeService
+     public dialog: MatDialog,private router: Router,private route: ActivatedRoute, private employeeService: EmployeeService, private companyService: CompanyService
     ) { 
 
   }
@@ -27,9 +29,9 @@ export class UsersComponent implements OnInit {
 
     this.employeeService.getAllEmployees().subscribe((res)=>{
       this.dataSource = res;
-      console.log(this.dataSource);
       
     })
+    this.getAllCompany();
 
   }
 
@@ -58,8 +60,7 @@ export class UsersComponent implements OnInit {
   }
 
   onAssoc(element: any){
-    console.log("---- : ", element);
-    // this.router.navigate(['/','user/associate']);
+   
 
   }
 
@@ -75,4 +76,16 @@ export class UsersComponent implements OnInit {
       
     });
   }
+
+  getAllCompany = () => {
+    this.companyService.getAllCompany().subscribe( (data) => {     
+      this.companyName = data;
+      
+      console.log("company_name", this.companyName);
+      
+      
+    })
+  }
+
+  
 }

@@ -10,20 +10,32 @@ import { UserService } from '../_services/user.service';
 
 
 interface Calculation {
-  monthlyNetSalary?: Number,
-  grossOfNet?: Number,
+  netValueEU?: Number,
+  grossOfNetAll?: Number,
+  grossOfNetEuro?: Number,
+  bonusBrutoDayShift?: Number,
+  bonusBrutoNightShift?: Number,
   hourlyWage?: Number,
   normalWorkingHours?: Number,
-  overtimeDuringWeek25?: Number,
+  overtimeDuringWeek25Day?: Number,
+  overtimeDuringWeek25Night?: Number,
   overtimeDuringWeek50?: Number,
   weekWorkinghours19_20?: Number,
-  workingHoursOnWeekend?: Number,
+  workingHoursOnWeekendDay?: Number,
+  workingHoursOnWeekendNight?: Number,
   overtimeWeekend?: Number,
+  annualLeave?: Number,
+  sickDays?: Number,
+  totalPaidDay?: Number,
+  totalPaidNight?: Number,
   totalPaidDays?: Number,
-  paidHoliday?: Number,
+  perdiems?: Number,
+  transport?: Number,
+  hotel?: Number,
   grossSalaryAll?: Number,
-  bonusBruto?: Number,
-  brutoOfNewNetValue?: Number,
+  bonusBrutoDayShiftF1?: Number,
+  bonusBrutoNightShiftF2?: Number,
+  grossSalaryAllTotal?: Number,
   levelOfSocInsurance?: Number,
   socInsurance?: Number,
   healthInsurance?: Number,
@@ -86,18 +98,28 @@ export class UserAssociateComponent implements OnInit {
   initForm(){
     this.form = new FormGroup({
       name: new FormControl({value: '', disabled: true}, [Validators.required]),
-      email: new FormControl({value: '', disabled: true}, [Validators.required]),
+      bankaccount: new FormControl({value: '', disabled: true}, [Validators.required]),
       company: new FormControl({value: '', disabled: true}, [Validators.required]),
       monthYear: new FormControl('',[Validators.required]),
-      monthlyNetSalary: new FormControl('',[Validators.min(0), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
-      totalPaidDays: new FormControl('',[Validators.min(0), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
+      netValueEU: new FormControl('',[Validators.min(0), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
+      bonusBrutoDayShift: new FormControl('',[Validators.min(0), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
+      bonusBrutoNightShift: new FormControl('',[Validators.min(0), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
       normalWorkingHours: new FormControl('',[Validators.min(0), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
-      overtimeDuringWeek25: new FormControl('',[Validators.min(0), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
+      overtimeDuringWeek25Day: new FormControl('',[Validators.min(0), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
+      overtimeDuringWeek25Night: new FormControl('',[Validators.min(0), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
       overtimeDuringWeek50: new FormControl('',[Validators.min(0), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
       weekWorkinghours19_20: new FormControl('',[Validators.min(0), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
-      workingHoursOnWeekend: new FormControl('',[Validators.min(0), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
+      workingHoursOnWeekendDay: new FormControl('',[Validators.min(0), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
+      workingHoursOnWeekendNight: new FormControl('',[Validators.min(0), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
       overtimeWeekend: new FormControl('',[Validators.min(0), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
-      paidHoliday: new FormControl('',[Validators.min(0), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
+      annualLeave: new FormControl('',[Validators.min(0), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
+      sickDays: new FormControl('',[Validators.min(0), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
+      totalPaidDay: new FormControl('',[Validators.min(0), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
+      totalPaidNight: new FormControl('',[Validators.min(0), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
+      perdiems: new FormControl('',[Validators.min(0), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
+      transport: new FormControl('',[Validators.min(0), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
+      hotel: new FormControl('',[Validators.min(0), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
+      totalPaidDays: new FormControl('',[Validators.min(0), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
       exchangeRate: new FormControl('',[Validators.min(0), Validators.pattern('^-?[0-9]\\d*(\\.\\d{1,2})?$')]),
 
 
@@ -117,7 +139,7 @@ export class UserAssociateComponent implements OnInit {
       this.emploeyeeService.getSingleEmployee(this.userId).subscribe( (data) => {              
         this.userData = data;
         data.name ? this.form.get('name').setValue(data.name) : null;
-        data.email ? this.form.get('email').setValue(data.email) : null;
+        data.bankaccount ? this.form.get('bankaccount').setValue(data.bankaccount) : null;
         this.companyService.singleCompany(data.company).subscribe( (dataCompany) => {                        
           dataCompany.name ? this.form.controls['company'].setValue(dataCompany.name) : null;
         })
@@ -127,18 +149,26 @@ export class UserAssociateComponent implements OnInit {
             monthYearId = data._id;
             this.emploeyeeService.getCalculationForUserAndYearMonth(monthYearId,this.userId).subscribe( (data) => {      
               if(data){
-                data.monthlyNetSalary ? this.form.controls['monthlyNetSalary'].setValue(data.monthlyNetSalary) : null;
-                data.totalPaidDays ? this.form.controls['totalPaidDays'].setValue(data.totalPaidDays) : null;
-                data.normalWorkingHours ? this.form.controls['normalWorkingHours'].setValue(data.normalWorkingHours) : null;
-                data.overtimeDuringWeek25 ? this.form.controls['overtimeDuringWeek25'].setValue(data.overtimeDuringWeek25) : null;
-                data.overtimeDuringWeek50 ? this.form.controls['overtimeDuringWeek50'].setValue(data.overtimeDuringWeek50) : null;
-                data.weekWorkinghours19_20 ? this.form.controls['weekWorkinghours19_20'].setValue(data.weekWorkinghours19_20) : null;
-                data.workingHoursOnWeekend != null ? this.form.controls['workingHoursOnWeekend'].setValue(data.workingHoursOnWeekend) : null;
-                data.overtimeWeekend ? this.form.controls['overtimeWeekend'].setValue(data.overtimeWeekend) : null;
-                data.paidHoliday != null ? this.form.controls['paidHoliday'].setValue(data.paidHoliday) : null;
-                data.exchangeRate ? this.form.controls['exchangeRate'].setValue(data.exchangeRate) : null;
-
-
+                data.netValueEU != null ? this.form.controls['netValueEU'].setValue(data.netValueEU) : null;
+                data.bonusBrutoDayShift != null ? this.form.controls['bonusBrutoDayShift'].setValue(data.bonusBrutoDayShift) : null;
+                data.bonusBrutoNightShift != null ? this.form.controls['bonusBrutoNightShift'].setValue(data.bonusBrutoNightShift) : null;
+                data.normalWorkingHours != null ? this.form.controls['normalWorkingHours'].setValue(data.normalWorkingHours) : null;
+                data.overtimeDuringWeek25Day != null ? this.form.controls['overtimeDuringWeek25Day'].setValue(data.overtimeDuringWeek25Day) : null;
+                data.overtimeDuringWeek25Night != null ? this.form.controls['overtimeDuringWeek25Night'].setValue(data.overtimeDuringWeek25Night) : null;
+                data.overtimeDuringWeek50 != null ? this.form.controls['overtimeDuringWeek50'].setValue(data.overtimeDuringWeek50) : null;
+                data.weekWorkinghours19_20 != null ? this.form.controls['weekWorkinghours19_20'].setValue(data.weekWorkinghours19_20) : null;
+                data.workingHoursOnWeekendDay != null ? this.form.controls['workingHoursOnWeekendDay'].setValue(data.workingHoursOnWeekendDay) : null;
+                data.workingHoursOnWeekendNight != null ? this.form.controls['workingHoursOnWeekendNight'].setValue(data.workingHoursOnWeekendNight) : null;
+                data.overtimeWeekend != null ? this.form.controls['overtimeWeekend'].setValue(data.overtimeWeekend) : null;
+                data.annualLeave != null ? this.form.controls['annualLeave'].setValue(data.annualLeave) : null;
+                data.sickDays != null ? this.form.controls['sickDays'].setValue(data.sickDays) : null;
+                data.totalPaidDay != null ? this.form.controls['totalPaidDay'].setValue(data.totalPaidDay) : null;
+                data.totalPaidNight != null ? this.form.controls['totalPaidNight'].setValue(data.totalPaidNight) : null;
+                data.totalPaidDays != null ? this.form.controls['totalPaidDays'].setValue(data.totalPaidDays) : null;
+                data.perdiems != null ? this.form.controls['perdiems'].setValue(data.perdiems) : null;
+                data.transport != null ? this.form.controls['transport'].setValue(data.transport) : null;
+                data.hotel != null ? this.form.controls['hotel'].setValue(data.hotel) : null;
+                data.exchangeRate != null ? this.form.controls['exchangeRate'].setValue(data.exchangeRate) : null;
               }
             })
         });
@@ -152,6 +182,7 @@ export class UserAssociateComponent implements OnInit {
   fetchMonthYears(){
     this.staticMonth.getAllMonthsYears().subscribe( (data) => {      
       this.monthYearList = data;
+      
     })
   }
 
@@ -162,38 +193,7 @@ export class UserAssociateComponent implements OnInit {
       this.companyList = data;
     })
   }
-  onUpdate(userId:any){
-
-    const calculation1: Calculation = {
-        monthlyNetSalary: this.form.get("monthlyNetSalary") ? parseFloat(this.form.get("monthlyNetSalary").value) : NaN,
-        totalPaidDays: parseFloat(this.form.get("totalPaidDays").value),
-
-        hourlyWage: this.form.get("hourlyWage") ? parseFloat(this.form.get("hourlyWage").value) : NaN,
-        normalWorkingHours: parseFloat(this.form.get("normalWorkingHours").value),
-        weekWorkinghours19_20: parseFloat(this.form.get("weekWorkinghours19_20").value),
-
-        overtimeDuringWeek25: parseFloat(this.form.get("overtimeDuringWeek25").value),
-        overtimeDuringWeek50: parseFloat(this.form.get("overtimeDuringWeek50").value),
-
-        workingHoursOnWeekend: parseFloat(this.form.get("workingHoursOnWeekend").value),
-
-        overtimeWeekend: parseFloat(this.form.get("overtimeWeekend").value),
-        grossSalaryAll: parseFloat(this.form.get("grossSalaryAll").value),
-        paidHoliday: parseFloat(this.form.get("paidHoliday").value),
-        user_id: userId
-    }
-
-    let objectCalculation: any = {
-      monthYear: this.form.get("monthYear") ? this.form.get("monthYear").value : null,
-      calculations: calculation1
-
-    }
-
-    this.emploeyeeService.completeEmployee(objectCalculation).subscribe( (result) => {
-      console.log("update11 ", result);
-
-    })
-  }
+  
 
 
 
@@ -202,202 +202,168 @@ export class UserAssociateComponent implements OnInit {
     let emploeyeeName = this.form.get("name").value;
 
    
-    const netValueEU = this.form.get("monthlyNetSalary") ? parseFloat(this.form.get("monthlyNetSalary").value) : NaN
-    const totalPaidDays = this.form.get("totalPaidDays") ? parseFloat(this.form.get("totalPaidDays").value) : NaN
+    const netValueEU = this.form.get("netValueEU") ? parseFloat(this.form.get("netValueEU").value) : NaN
+    const bonusBrutoDayShift = this.form.get("bonusBrutoDayShift") ? parseFloat(this.form.get("bonusBrutoDayShift").value) : NaN
+    const bonusBrutoNightShift = this.form.get("bonusBrutoNightShift") ? parseFloat(this.form.get("bonusBrutoNightShift").value) : NaN
     const normalWorkingHours = this.form.get("normalWorkingHours") ? parseFloat(this.form.get("normalWorkingHours").value) : NaN
-    const weekWorkinghours19_20 = this.form.get("weekWorkinghours19_20") ? parseFloat(this.form.get("weekWorkinghours19_20").value) : NaN
-    const overtimeDuringWeek25 = this.form.get("overtimeDuringWeek25") ? parseFloat(this.form.get("overtimeDuringWeek25").value) : NaN
+    const overtimeDuringWeek25Day = this.form.get("overtimeDuringWeek25Day") ? parseFloat(this.form.get("overtimeDuringWeek25Day").value) : NaN
+    const overtimeDuringWeek25Night = this.form.get("overtimeDuringWeek25Night") ? parseFloat(this.form.get("overtimeDuringWeek25Night").value) : NaN
     const overtimeDuringWeek50 = this.form.get("overtimeDuringWeek50") ? parseFloat(this.form.get("overtimeDuringWeek50").value) : NaN
-    const workingHoursOnWeekend = this.form.get("workingHoursOnWeekend") ? parseFloat(this.form.get("workingHoursOnWeekend").value) : NaN
+    const weekWorkinghours19_20 = this.form.get("weekWorkinghours19_20") ? parseFloat(this.form.get("weekWorkinghours19_20").value) : NaN
+    const workingHoursOnWeekendDay = this.form.get("workingHoursOnWeekendDay") ? parseFloat(this.form.get("workingHoursOnWeekendDay").value) : NaN
+    const workingHoursOnWeekendNight = this.form.get("workingHoursOnWeekendNight") ? parseFloat(this.form.get("workingHoursOnWeekendNight").value) : NaN
     const overtimeWeekend = this.form.get("overtimeWeekend") ? parseFloat(this.form.get("overtimeWeekend").value) : NaN
-    const paidHoliday = this.form.get("paidHoliday") ? parseFloat(this.form.get("paidHoliday").value) : NaN
+    const annualLeave = this.form.get("annualLeave") ? parseFloat(this.form.get("annualLeave").value) : NaN
+    const sickDays = this.form.get("sickDays") ? parseFloat(this.form.get("sickDays").value) : NaN
+    const totalPaidDay = this.form.get("totalPaidDay") ? parseFloat(this.form.get("totalPaidDay").value) : NaN
+    const totalPaidNight = this.form.get("totalPaidNight") ? parseFloat(this.form.get("totalPaidNight").value) : NaN
+    const totalPaidDays = this.form.get("totalPaidDays") ? parseFloat(this.form.get("totalPaidDays").value) : NaN
+    const perdiems = this.form.get("perdiems") ? parseFloat(this.form.get("perdiems").value) : NaN
+    const transport = this.form.get("transport") ? parseFloat(this.form.get("transport").value) : NaN
+    const hotel = this.form.get("hotel") ? parseFloat(this.form.get("hotel").value) : NaN
     const exchangeRate = this.form.get("exchangeRate") ? parseFloat(this.form.get("exchangeRate").value) : NaN
-    let netValueLEK;
-    let bruto;
-    let hourlyWage;
-    let grossSalaryAll;
-    let bonusWeeklyNet;
-    let bonusMonthlyNet;
-    let bonusWeeklyGross;
-    let levelOfSocInsurance;
-    let socInsurance;
-    let healthInsurance;
-    let totalInsurance;
-    let socInsuranceCOM;
-    let healthInsuranceCOM;
-    let totalInsuranceCOM;
-    let salaryBeforeIncomeLEK;
-    let incomeTax = 0;
-    let netSalaryCOMAll;
-    let netSalaryCOMEuro;
-    let brutoOfNewNetValue;
-    let netSalaryPlusBonus;
-    let bonusBruto;
-    let costOfEmployer;
-    let agencyComision;
-    let totalWithoutVAT;
-    let VAT = 0;
-    let totalWithVAT;
    
+    let netValueLEK = 0;
+    let bruto = 0;
+    let grossOfNetAll = 0;
+    let grossOfNetEuro = 0;
+    let hourlyWage = 0;
+    let grossSalaryAll = 0;
+    let levelOfSocInsurance = 0;
+    let socInsurance = 0;
+    let healthInsurance = 0;
+    let totalInsurance = 0;
+    let socInsuranceCOM = 0;
+    let healthInsuranceCOM = 0;
+    let totalInsuranceCOM = 0;
+    let incomeTax = 0;
+    let netSalaryCOMAll = 0;
+    let netSalaryCOMEuro = 0;
+    let netSalaryPlusBonus = 0;
+    let costOfEmployer = 0;
+    let agencyComision = 0;
+    let totalWithoutVAT = 0;
+    let VAT = 0;
+    let totalWithVAT = 0;
+
     netValueLEK = netValueEU*exchangeRate;
     bruto = (netValueLEK - 3900)/(1 - TAX.SIGURIME_SHENDETSORE - TAX.SIGURIME_SHOQERORE - TAX.TAP_MID);
-    
-    hourlyWage = bruto/(totalPaidDays*8);
+    grossOfNetAll = bruto;
+    grossOfNetEuro = bruto/exchangeRate;
+    hourlyWage = bruto/(21*8);
 
-    grossSalaryAll = (hourlyWage*normalWorkingHours)+(hourlyWage*overtimeDuringWeek25*1.25)+(hourlyWage*overtimeDuringWeek50*1.5)+(hourlyWage*weekWorkinghours19_20*1.2)+(hourlyWage*workingHoursOnWeekend*1.25)+(hourlyWage*overtimeWeekend*1.5)+bruto/21*paidHoliday;
-    if (grossSalaryAll > 132312){
-      levelOfSocInsurance = 132312;
+    grossSalaryAll = (hourlyWage*normalWorkingHours)+(hourlyWage*overtimeDuringWeek25Day*1.25)+(hourlyWage*overtimeDuringWeek25Night*1.25)+(hourlyWage*overtimeDuringWeek50*1.5)+(hourlyWage*weekWorkinghours19_20*1.2)+(hourlyWage*workingHoursOnWeekendDay*1.25)+(hourlyWage*workingHoursOnWeekendNight*1.5)+(hourlyWage*overtimeWeekend*1.5)+(bruto/21*annualLeave)+(bruto/21*sickDays*0.7);
+    
+    let bonusBrutoDayShiftF1 = bonusBrutoDayShift/14*totalPaidDay;
+    let bonusBrutoNightShiftF2 = bonusBrutoNightShift/14*totalPaidNight;
+
+    let grossSalaryAllTotal = grossSalaryAll + bonusBrutoDayShiftF1 + bonusBrutoNightShiftF2;
+    if (grossSalaryAllTotal > 141133){
+      levelOfSocInsurance = 141133;
     }
-    else if (grossSalaryAll < 30000){
-      levelOfSocInsurance = 30000;
+    else if (grossSalaryAllTotal < 32000){
+      levelOfSocInsurance = 32000;
+      
     } 
     else{
-      levelOfSocInsurance = grossSalaryAll;
+      levelOfSocInsurance = grossSalaryAllTotal;
     }
     socInsurance = levelOfSocInsurance*TAX.SIGURIME_SHOQERORE;
-    healthInsurance = levelOfSocInsurance*TAX.SIGURIME_SHENDETSORE;
+    healthInsurance = grossSalaryAllTotal*TAX.SIGURIME_SHENDETSORE;
     totalInsurance = socInsurance + healthInsurance;
 
     socInsuranceCOM = levelOfSocInsurance*0.15;
-    healthInsuranceCOM = levelOfSocInsurance*TAX.SIGURIME_SHENDETSORE;
+    healthInsuranceCOM = grossSalaryAllTotal*TAX.SIGURIME_SHENDETSORE;
     totalInsuranceCOM = socInsuranceCOM + healthInsuranceCOM;
 
      
 
 
 
-    if(grossSalaryAll > 30000 && grossSalaryAll < 150000){
-      incomeTax = (grossSalaryAll - 30000)* TAX.TAP_MID;
+    if(grossSalaryAllTotal > 30000 && grossSalaryAllTotal < 200000){
+      incomeTax = (grossSalaryAllTotal - 30000)* TAX.TAP_MID;
     }
-    else if(grossSalaryAll > 150000){
-      incomeTax = (grossSalaryAll - 150000)*TAX.TAP_TOP + 15600;
+    else if(grossSalaryAllTotal > 200000){
+      incomeTax = (grossSalaryAllTotal - 200000)*TAX.TAP_TOP + 22100;
     }
-    else if(grossSalaryAll < 30000){
+    else if(grossSalaryAllTotal < 30000){
       incomeTax = 0;
     }
 
-    netSalaryCOMAll = grossSalaryAll - totalInsurance - incomeTax;
+    netSalaryCOMAll = grossSalaryAllTotal - totalInsurance - incomeTax;
     netSalaryCOMEuro = netSalaryCOMAll/exchangeRate;
     
 
     
-    bonusWeeklyNet = ((netValueLEK/21*7*0.075)+(netValueLEK/21*7*0.25));
-    bonusWeeklyGross = 
-    bonusMonthlyNet = (netValueLEK/21*7);
-    netSalaryPlusBonus = netSalaryCOMAll + bonusWeeklyNet;
-    brutoOfNewNetValue = (netSalaryPlusBonus - 3900)/(1 - TAX.SIGURIME_SHENDETSORE - TAX.SIGURIME_SHOQERORE - TAX.TAP_MID); 
-    levelOfSocInsurance = this.calculateBonusNewNetValue(bonusWeeklyNet,grossSalaryAll,incomeTax,brutoOfNewNetValue);
-
-  // -----------------------------------------return again to calculate start---------------------------------------------
-
-  socInsurance = levelOfSocInsurance*TAX.SIGURIME_SHOQERORE;
-  healthInsurance = levelOfSocInsurance*TAX.SIGURIME_SHENDETSORE;
-  totalInsurance = socInsurance + healthInsurance;
-
-  socInsuranceCOM = levelOfSocInsurance*0.15;
-  healthInsuranceCOM = levelOfSocInsurance*TAX.SIGURIME_SHENDETSORE;
-  totalInsuranceCOM = socInsuranceCOM + healthInsuranceCOM;
-
-
-  if(brutoOfNewNetValue > 30000 && brutoOfNewNetValue < 150000){
-    incomeTax = (brutoOfNewNetValue - 30000)* TAX.TAP_MID;
-  }
-  else if(brutoOfNewNetValue > 150000){
-    incomeTax = (brutoOfNewNetValue - 150000)*TAX.TAP_TOP + 15600;
-  }
-  else if(brutoOfNewNetValue < 30000){
-    incomeTax = 0;
-  }
-
-  netSalaryCOMAll = brutoOfNewNetValue - totalInsurance - incomeTax;
-  netSalaryCOMEuro = netSalaryCOMAll/exchangeRate;
-
-  // -----------------------------------------return again to calculate end---------------------------------------------
-
-
-    bonusBruto = brutoOfNewNetValue - grossSalaryAll;
-    costOfEmployer = (brutoOfNewNetValue + totalInsuranceCOM)/exchangeRate;
+    
+    costOfEmployer = (grossSalaryAllTotal + totalInsuranceCOM)/exchangeRate;
     agencyComision = costOfEmployer*0.09;
     totalWithoutVAT = costOfEmployer + agencyComision;
+    VAT = totalWithoutVAT*0.2;
     totalWithVAT = totalWithoutVAT + VAT;
-    salaryBeforeIncomeLEK = brutoOfNewNetValue;
+    
     
       
 
     const calculation1: Calculation = {
-      monthlyNetSalary: netValueEU,
-      grossOfNet: parseFloat(bruto.toFixed(2)),
+      
+      netValueEU: parseFloat(netValueEU.toFixed(2)),
+      bonusBrutoDayShift: parseFloat(bonusBrutoDayShift.toFixed(2)),
+      bonusBrutoNightShift: parseFloat(bonusBrutoNightShift.toFixed(2)),
+      grossOfNetAll: parseFloat(grossOfNetAll.toFixed(2)),
+      grossOfNetEuro: parseFloat(grossOfNetEuro.toFixed(2)),
       hourlyWage: parseFloat(hourlyWage.toFixed(2)),
       normalWorkingHours: normalWorkingHours,
-      overtimeDuringWeek25: overtimeDuringWeek25,
+      overtimeDuringWeek25Day: overtimeDuringWeek25Day,
+      overtimeDuringWeek25Night: overtimeDuringWeek25Night,
       overtimeDuringWeek50: overtimeDuringWeek50,
       weekWorkinghours19_20: weekWorkinghours19_20,
-      workingHoursOnWeekend: workingHoursOnWeekend,
+      workingHoursOnWeekendDay: workingHoursOnWeekendDay,
+      workingHoursOnWeekendNight: workingHoursOnWeekendNight,
       overtimeWeekend: overtimeWeekend,
-      paidHoliday: paidHoliday,
+      annualLeave:annualLeave,
+      sickDays:sickDays,
+      totalPaidDay: totalPaidDay,
+      totalPaidNight: totalPaidNight,
       totalPaidDays: totalPaidDays,
+      perdiems: perdiems,
+      bonusBrutoDayShiftF1: parseFloat(bonusBrutoDayShiftF1.toFixed(2)),
+      bonusBrutoNightShiftF2: parseFloat(bonusBrutoNightShiftF2.toFixed(2)),
+      transport: transport,
+      hotel: hotel,
       grossSalaryAll: parseFloat(grossSalaryAll.toFixed(2)),
-      bonusBruto: bonusBruto,
-      brutoOfNewNetValue: brutoOfNewNetValue,
-      levelOfSocInsurance: levelOfSocInsurance,
-      socInsurance: socInsurance,
-      healthInsurance: healthInsurance,
-      totalInsurance: totalInsurance,
-      socInsuranceCOM: socInsuranceCOM,
-      healthInsuranceCOM: healthInsuranceCOM,
-      totalInsuranceCOM: totalInsuranceCOM,
-      salaryBeforeIncomeLEK: salaryBeforeIncomeLEK,
-      incomeTax: incomeTax,
-      netSalaryCOMAll: netSalaryCOMAll,
-      netSalaryCOMAEuro: netSalaryCOMEuro,
-      netSalaryPlusBonus: netSalaryPlusBonus,
-      totalWithoutVAT: totalWithoutVAT,
-      costOfEmployer: costOfEmployer,
-      agencyComision: agencyComision,
-      VAT: VAT,
-      totalWithVAT: totalWithVAT,
-
+      grossSalaryAllTotal: parseFloat(grossSalaryAllTotal.toFixed(2)),
+      levelOfSocInsurance: parseFloat(levelOfSocInsurance.toFixed(2)),
+      socInsurance: parseFloat(socInsurance.toFixed(0)),
+      healthInsurance: parseFloat(healthInsurance.toFixed(0)),
+      totalInsurance: parseFloat(totalInsurance.toFixed(0)),
+      socInsuranceCOM: parseFloat(socInsuranceCOM.toFixed(0)),
+      healthInsuranceCOM: parseFloat(healthInsuranceCOM.toFixed(0)),
+      totalInsuranceCOM: parseFloat(totalInsuranceCOM.toFixed(0)),
+      incomeTax: parseFloat(incomeTax.toFixed(0)),
+      netSalaryCOMAll: parseFloat(netSalaryCOMAll.toFixed(0)),
+      netSalaryCOMAEuro: parseFloat(netSalaryCOMEuro.toFixed(2)),
+      netSalaryPlusBonus: parseFloat(netSalaryPlusBonus.toFixed(2)),
+      totalWithoutVAT: parseFloat(totalWithoutVAT.toFixed(2)),
+      costOfEmployer: parseFloat(costOfEmployer.toFixed(2)),
+      agencyComision: parseFloat(agencyComision.toFixed(2)),
+      VAT: parseFloat(VAT.toFixed(2)),
+      totalWithVAT: parseFloat(totalWithVAT.toFixed(2)),
       exchangeRate: exchangeRate,
-
       emploeyeeName: emploeyeeName,
       user_id: userId
     }
 
     let objectCalculation: any = {
       monthYear: this.form.get("monthYear") ? this.form.get("monthYear").value : null,
-      calculations: calculation1
+      calculations: calculation1,
     }
 
     this.emploeyeeService.completeEmployee(objectCalculation).subscribe( (result) => {
-      console.log("update11 ", result);
 
     })
   }
 
 
-  calculateBonusNewNetValue = (bonusWeeklyNet: any, grossSalary: any, incomeTax: any,brutoofNew:any) => {
-
-    let TOPVALUE:any = 132312;
-    let BOTTOMVALUE:any = 30000;
-    let levelOfSocInsurance_ = TOPVALUE;
-
-    let bonusofNetNetSalary:any = 0;
-    bonusofNetNetSalary = (grossSalary - levelOfSocInsurance_* (TAX.SIGURIME_SHENDETSORE + TAX.SIGURIME_SHOQERORE) - incomeTax + bonusWeeklyNet - 3900)/(1 - TAX.SIGURIME_SHENDETSORE - TAX.SIGURIME_SHOQERORE - TAX.TAP_MID);
-
-    if(bonusofNetNetSalary > TOPVALUE){
-      return TOPVALUE;
-    } else{
-      levelOfSocInsurance_ = BOTTOMVALUE;
-      bonusofNetNetSalary = (grossSalary - levelOfSocInsurance_* (TAX.SIGURIME_SHENDETSORE + TAX.SIGURIME_SHOQERORE) - incomeTax + bonusWeeklyNet - 3900)/ (1 - TAX.SIGURIME_SHENDETSORE - TAX.SIGURIME_SHOQERORE - TAX.TAP_MID);
-      if(bonusofNetNetSalary < BOTTOMVALUE){
-        return BOTTOMVALUE;
-      } else{
-        return  brutoofNew;
-      }
-    }
-
-
-    
-
-  }
+  
 }

@@ -2,11 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CompanyService } from '../_services/company.service';
 import {MatDialog} from '@angular/material/dialog';
 import { BONUS_TYPE, CreateCompanyComponent } from '../create-company/create-company.component';
-import { MatButtonModule } from '@angular/material/button';
-import { MatTableModule } from '@angular/material/table';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
+
 import { Router } from '@angular/router';
 
 
@@ -16,7 +12,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./company.component.css']
 })
 export class CompanyComponent implements OnInit {
-  displayedColumns: string[] = ['index','name', 'address','nipt', 'users', 'bonus', 'bonusfirstweek', 'bonussecondweek', 'action'];
+  displayedColumns: string[] = ['index','name', 'address','nipt', 'users', 'action'];
   dataSource: any;
 
   constructor(private companyService: CompanyService, public dialog: MatDialog, private router: Router) { 

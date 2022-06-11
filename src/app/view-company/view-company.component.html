@@ -1,14 +1,31 @@
 
 <div class="container">
-    <h1>Company name: <strong>{{dataSource.name}} ({{dataSource.users.length}})</strong></h1>
+    <h1>Company name: <strong>{{dataSource.name}} ({{dataSource.users.length}})</strong>
+        <button class="mr-1 ml-3" mat-stroked-button color="primary" type="button" (click)="getExcelForUsers()">FULL EXCEL</button>
+        <button class="mr-1 ml-3" mat-stroked-button color="primary" type="button" (click)="openSettings()">Settings</button>
+
+
+      </h1>
+    <!-- <div mat-dialog-actions>
+        <button mat-button type="submit" (click)="getExcelForUser(dataSource.name)">EXPORT</button>
+
+      </div>  -->
+
+      <div>
+        <button *ngFor="let months of dataMonth" [ngClass]="months._id === selectedMonth ? 'active': ''" class="mr-1" mat-stroked-button type="button" (click)="getValueMonth(months._id)">{{months.month}}</button>
+
+      </div>
     <div class="company-box">
-        <div *ngFor="let user of dataSource.users" class="card" style="width: 15rem;">
+        <div *ngFor="let user of dataSource.users" class="mr-2 mt-2 mb-2">
             <div class="card-body">
                 <h1 class="card-title">{{user.name}}</h1>
-                <p class="card-text">{{user.email}}</p>
-                <p *ngIf="user.calculation" class="card-text">{{user.calculation.monthlyNetSalary}}</p>
-                <a [routerLink]="['/employee/associate', user._id]" routerLinkActive="active" class="btn btn-primary">Assoc</a>
+                <p class="card-text">{{user.bankaccount}}</p>
+                <p *ngIf="user.calculation" class="card-text">{{user.calculation.netValueEU}}</p>
+                <button [routerLink]="['/employee/associate', user._id]" routerLinkActive="active" mat-flat-button color="primary">UPDATE</button>
+                <button class="mr-2 ml-2" mat-flat-button color="accent" type="button" (click)="getExcelForOnlyUser(user._id, user.name)">EXPORT</button>
+
             </div>
         </div>
     </div>
+    
 </div>

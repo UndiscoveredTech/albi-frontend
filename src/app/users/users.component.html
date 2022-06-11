@@ -1,10 +1,10 @@
     
     <div class="container mt-5">
-
+        
         <h1>Users Management</h1>
         <button mat-raised-button (click)="onCreateEmployee()">Create employee</button> 
           <table mat-table [dataSource]="dataSource" #mytable class="my-table mat-elevation-z8 table">
-              
+            
             <ng-container >
                 <!-- Index Column -->
                 <ng-container matColumnDef="index">
@@ -18,10 +18,10 @@
                     <td mat-cell *matCellDef="let element"> {{element.name}} </td>
                 </ng-container>
         
-                <!-- Email Column -->
-                <ng-container matColumnDef="email">
-                    <th mat-header-cell *matHeaderCellDef>Email</th>
-                    <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+                <!-- Bank Account Column -->
+                <ng-container matColumnDef="bankaccount">
+                    <th mat-header-cell *matHeaderCellDef>Bank account</th>
+                    <td mat-cell *matCellDef="let element"> {{element.bankaccount}} </td>
                 </ng-container>
 
                 <!-- company Column -->

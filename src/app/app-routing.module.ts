@@ -11,6 +11,7 @@ import { CompanyComponent } from './company/company.component';
 import { UsersComponent } from './users/users.component';
 import { UserAssociateComponent } from './user-associate/user-associate.component';
 import { ViewCompanyComponent } from './view-company/view-company.component';
+import { SettingsComponent } from './settings/settings.component';
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'company', component: CompanyComponent},
@@ -23,7 +24,9 @@ const routes: Routes = [
   { path: 'user', component: BoardUserComponent },
   { path: 'mod', component: BoardModeratorComponent },
   { path: 'admin', component: BoardAdminComponent },
+  { path: 'settings', component: SettingsComponent },
   { path: '', redirectTo: 'login', pathMatch: 'full' }
+  
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

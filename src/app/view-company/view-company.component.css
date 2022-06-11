@@ -3,9 +3,23 @@
 }
 .card {
 
-    margin: 10px;
+    width: 15rem;
+}
+
+.active {
+
+
+    color: #fff;
+    background-color: #00b74a;
+
+}
+.card-body {
+
+    border: 1px solid #c8c8c8;
+    border-radius: 0.4rem;
 }
 .company-box {
 
     display: flex;
+    flex-wrap: wrap;
 }

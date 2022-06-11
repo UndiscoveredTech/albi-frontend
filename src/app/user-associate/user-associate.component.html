@@ -6,29 +6,10 @@
         <label for="description">Name: </label>
         <mat-form-field >
           <mat-label>Name</mat-label>
-          <input  id="description" type="text" formControlName="name" matInput required="monthlyNetSalary">
+          <input  id="description" type="text" formControlName="name" matInput required="netValueEU">
         </mat-form-field>
       </div>
   
-      <!-- <div >
-        <label for="description">Email: </label>
-        <mat-form-field >
-          <mat-label>Email</mat-label>
-          <input type="email" formControlName="email" matInput required>
-        </mat-form-field>
-      </div>
-  
-      <div>
-        <label for="description">Company: </label>
-        <mat-form-field>
-            <mat-select  [disabled] = "true" matInput formControlName="company" >
-                <mat-option  *ngFor="let company of companyList" [value]="company.name">
-                    {{company.name}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-  
-      </div> -->
   
       <div>
         <label for="description">MonthYear: </label>
@@ -45,21 +26,27 @@
       </div>
   
       <div>
-        <label for="description">Monthly Net Salary: </label>
+        <label for="description">Net Salary</label>
         <mat-form-field>
-          <mat-label>Monthly Net Salary</mat-label>
-          <input id="description" type="number" formControlName="monthlyNetSalary" matInput required="monthlyNetSalary">
+          <mat-label>Net Salary</mat-label>
+          <input id="description" type="number" formControlName="netValueEU" matInput required="netValueEU">
         </mat-form-field>
       </div>
   
       <div>
-        <label for="description">Total Paid Days: </label>
-        <mat-form-field>
-          <mat-label>Total Paid Days</mat-label>
-          <input id="description" type="number" formControlName="totalPaidDays" matInput required="totalPaidDays">
+        <label for="description">Bonus</label>
+        <div class="d-flex justify-content-between">
+        <mat-form-field class="w-50 paddingright10">
+          <mat-label>Day Shift</mat-label>
+          <input id="description" type="number" formControlName="bonusBrutoDayShift" matInput required="bonusDayShift">
+        </mat-form-field>
+        <mat-form-field class="w-50 paddingleft10">
+          <mat-label>Night Shift</mat-label>
+          <input id="description" type="number" formControlName="bonusBrutoNightShift" matInput required="bonusNightShift">
         </mat-form-field>
       </div>
-  
+      </div>
+
       <div>
         <label for="description">Normal Working Hours (07:00-15:00) </label>
         <mat-form-field>
@@ -68,12 +55,21 @@
         </mat-form-field>
     </div>
     <div>
-      <label for="description">Overtime During Week (15:00-19:00 + 06:00-07:00) </label>
-      <mat-form-field>
-        <mat-label>Overtime During Week</mat-label>
-        <input id="description" type="number" formControlName="overtimeDuringWeek25" matInput required="overtimeDuringWeek25">
-      </mat-form-field>
+      <label for="description">Overtime During Week</label>
+
+      <div class="d-flex justify-content-between">
+        <mat-form-field class="w-50 paddingright10">
+          <mat-label>Overtime During Week (15:00-19:00)</mat-label>
+          <input id="description" type="number" formControlName="overtimeDuringWeek25Day" matInput required="overtimeDuringWeek25Day">
+        </mat-form-field>
+        <mat-form-field class="w-50 paddingleft10">
+          <mat-label>Overtime During Week (06:00-07:00)</mat-label>
+          <input id="description" type="number" formControlName="overtimeDuringWeek25Night" matInput required="overtimeDuringWeek25Night">
+        </mat-form-field>
+      </div>
+      
     </div>
+
     <div>
       <label for="description">Overtime During Week (22:00-06:00) </label>
       <mat-form-field>
@@ -92,10 +88,17 @@
   
     <div>
       <label for="description">Working Hours On Saturdays and Sundays </label>
-      <mat-form-field>
-        <mat-label>Working Hours On Saturdays and Sundays</mat-label>
-        <input id="description" type="number" formControlName="workingHoursOnWeekend" matInput required="workingHoursOnWeekend">
-      </mat-form-field>
+      
+      <div class="d-flex justify-content-between">
+        <mat-form-field class="w-50 paddingright10">
+          <mat-label>Working Hours On Saturdays and Sundays +25%</mat-label>
+          <input id="description" type="number" formControlName="workingHoursOnWeekendDay" matInput required="workingHoursOnWeekendDay">
+        </mat-form-field>
+        <mat-form-field class="w-50 paddingleft10">
+          <mat-label>Working Hours On Saturdays and Sundays +50%</mat-label>
+          <input id="description" type="number" formControlName="workingHoursOnWeekendNight" matInput required="workingHoursOnWeekendNight">
+        </mat-form-field>
+      </div>
     </div>
   
     <div>
@@ -107,13 +110,62 @@
     </div>
 
     <div>
-      <label for="description">Paid Holiday Leave </label>
+      <label for="description">Annual Leave</label>
       <mat-form-field>
-        <mat-label>Paid Holiday</mat-label>
-        <input id="description" type="number" formControlName="paidHoliday" matInput required="paidHoliday">
+        <mat-label>Annual Leave</mat-label>
+        <input id="description" type="number" formControlName="annualLeave" matInput required="annualLeave">
+      </mat-form-field>
+    </div>
+
+    <div>
+      <label for="description">Sick Days</label>
+      <mat-form-field>
+        <mat-label>Sick Days</mat-label>
+        <input id="description" type="number" formControlName="sickDays" matInput required="sickDays">
+      </mat-form-field>
+    </div>
+
+    <div>
+      <label for="description">Paid Days</label>
+      
+      <div class="d-flex justify-content-between">
+        <mat-form-field class="w-50 paddingright10">
+          <mat-label>Day Shift</mat-label>
+          <input id="description" type="number" formControlName="totalPaidDay" matInput required="totalPaidDay">
+        </mat-form-field>
+        <mat-form-field class="w-50 paddingleft10">
+          <mat-label>Night Shift</mat-label>
+          <input id="description" type="number" formControlName="totalPaidNight" matInput required="totalPaidNight">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div>
+      <label for="description">Total Paid Days</label>
+      <mat-form-field>
+        <mat-label>Total Paid Days</mat-label>
+        <input id="description" type="number" formControlName="totalPaidDays" matInput required="totalPaidDays">
       </mat-form-field>
     </div>
     <div>
+      <div>
+        <label for="description">Other Costs</label>
+        
+        <div class="d-flex justify-content-between">
+          <mat-form-field class="paddingright10">
+            <mat-label>Perdiems</mat-label>
+            <input id="description" type="number" formControlName="perdiems" matInput required="perdiems">
+          </mat-form-field>
+          <mat-form-field class="paddingleft10">
+            <mat-label>Transport</mat-label>
+            <input id="description" type="number" formControlName="transport" matInput required="transport">
+          </mat-form-field>
+          <mat-form-field class="paddingright10">
+            <mat-label>Hotel</mat-label>
+            <input id="description" type="number" formControlName="hotel" matInput required="hotel">
+          </mat-form-field>
+        </div>
+      </div>
       <label for="description">Exchange Rate </label>
       <mat-form-field>
         <mat-label>Exchange Rate</mat-label>
@@ -163,9 +215,11 @@
       
   
       <div mat-dialog-actions>
-        <button mat-button type="submit" (click)="onCalculate(userData._id)" cdkFocusInitial [disabled]="form.invalid">LLOGARIT</button>
+        <button mat-flat-button color="primary" type="submit" (click)="onCalculate(userData._id)" cdkFocusInitial [disabled]="form.invalid">SUBMIT</button>
       </div>  
     </form>
+
+    <br>
   
               
   
